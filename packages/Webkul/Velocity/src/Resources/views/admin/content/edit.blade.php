@@ -57,14 +57,14 @@
 
                         {!! view_render_event('bagisto.admin.content.edit_form_accordian.page.controls.before', ['content' => $content]) !!}
 
-                        <div class="control-group" :class="[errors.has('{{$locale}}[title]') ? 'has-error' : '']">
+                        <div class="control-group" :class="[errors.has('{{$locale}}[name]') ? 'has-error' : '']">
                             <label for="title" class="required">
                                 {{ __('velocity::app.admin.contents.page.title') }}
                                 <span class="locale">[{{ $locale }}]</span>
                             </label>
-                            <input type="text" v-validate="'required|max:100'" class="control" id="title" name="{{$locale}}[title]" value="{{ old($locale)['title'] ?? isset($translation->title) ? $translation->title : '' }}" data-vv-as="&quot;{{ __('velocity::app.admin.contents.page.title') }}&quot;"/>
+                            <input type="text" v-validate="'required|max:100'" class="control" id="title" name="{{$locale}}[name]" value="{{ old($locale)['name'] ?? isset($translation->name) ? $translation->name : '' }}" data-vv-as="&quot;{{ __('velocity::app.admin.contents.page.title') }}&quot;"/>
 
-                            <span class="control-error" v-if="errors.has('{{$locale}}[title]')" v-text="errors.first('{!!$locale!!}[title]')"></span>
+                            <span class="control-error" v-if="errors.has('{{$locale}}[name]')" v-text="errors.first('{!!$locale!!}[name]')"></span>
                         </div>
 
                         <div class="control-group" :class="[errors.has('position') ? 'has-error' : '']">
@@ -110,6 +110,13 @@
                 </accordian>
 
                 {!! view_render_event('bagisto.admin.content.edit_form_accordian.content.after', ['content' => $content]) !!}
+
+                <accordian title="{{ __('admin::app.catalog.categories.parent-category') }}" :active="true">
+                    <div slot="body">
+
+                        <tree-view value-field="id" name-field="parent_id" input-type="radio" items='@json($contentTree)' value='@json($content->parent_id)' fallback-locale="{{ config('app.fallback_locale') }}"></tree-view>
+                    </div>
+                </accordian>
 
             </div>
 
