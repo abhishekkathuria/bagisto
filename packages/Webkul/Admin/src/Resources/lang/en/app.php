@@ -3458,6 +3458,7 @@ return [
                     'image-carousel'    => 'Image Carousel',
                     'product-carousel'  => 'Product Carousel',
                     'services-content'  => 'Services Content',
+                    'hero-content'      => 'Hero Section',
                     'static-content'    => 'Static Content',
                     'title'             => 'Type',
                 ],

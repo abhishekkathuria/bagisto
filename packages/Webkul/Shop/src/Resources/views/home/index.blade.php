@@ -76,6 +76,26 @@
                 />
 
                 @break
+
+            @case ($customization::HERO_SECTION)
+            @php
+                $herosection = app('Webkul\Theme\Models\HeroSection')->first();
+            @endphp
+
+                <div class="flex">
+                    <iframe width="{{$herosection->youtube_width}}" height="{{$herosection->youtube_height}}" src="{{$herosection->youtube_url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    
+                    <div>
+                        <a href="{{$herosection->top_image_url}}">
+                            <img src="/storage/{{$herosection->top_image}}" alt="{{$herosection->top_image_alt}}" width="{{$herosection->top_image_width}}" height="{{$herosection->top_image_height}}"/>
+                        </a>
+                        <a href="{{$herosection->bottom_image_url}}">
+                            <img src="/storage/{{$herosection->bottom_image}}" alt="{{$herosection->bottom_image_alt}}" width="{{$herosection->bottom_image_width}}" height="{{$herosection->bottom_image_height}}"/>
+                        </a>
+                    </div>
+                </div>
+
+                @break
         @endswitch
     @endforeach
 </x-shop::layouts>

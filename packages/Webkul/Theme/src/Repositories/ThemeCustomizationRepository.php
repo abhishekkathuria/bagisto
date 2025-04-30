@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Webkul\Core\Eloquent\Repository;
 use Webkul\Theme\Contracts\ThemeCustomization;
+use Webkul\Theme\Models\HeroSection as ModelsHeroSection;
 
 class ThemeCustomizationRepository extends Repository
 {
@@ -44,7 +45,78 @@ class ThemeCustomizationRepository extends Repository
             $this->uploadImage(request()->all(), $theme);
         }
 
+        if (in_array($data['type'], ['hero_section'])) {
+            $this->heroSection(request()->all(), $theme);
+        }
+
         return $theme;
+    }
+
+    public function heroSection(array $data, $theme)
+    {
+        $heroModal = ModelsHeroSection::first();
+
+        if (!$heroModal) {
+            ModelsHeroSection::create([
+                'youtube_url' => $data['youtube_url'],
+                'youtube_height' => $data['youtube_height'],
+                'youtube_width' => $data['youtube_width'],
+                'top_image_url' => $data['top_image_url'],
+                'top_image_height' => $data['top_image_height'],
+                'top_image_width' => $data['top_image_width'],
+                'top_image_alt' => $data['top_image_alt'],
+                'bottom_image_url' => $data['bottom_image_url'],
+                'bottom_image_height' => $data['bottom_image_height'],
+                'bottom_image_width' => $data['bottom_image_width'],
+                'bottom_image_alt' => $data['bottom_image_alt'],
+            ]);
+        } else {
+            $heroModal->update([
+                'youtube_url' => $data['youtube_url'],
+                'youtube_height' => $data['youtube_height'],
+                'youtube_width' => $data['youtube_width'],
+                'top_image_url' => $data['top_image_url'],
+                'top_image_height' => $data['top_image_height'],
+                'top_image_width' => $data['top_image_width'],
+                'top_image_alt' => $data['top_image_alt'],
+                'bottom_image_url' => $data['bottom_image_url'],
+                'bottom_image_height' => $data['bottom_image_height'],
+                'bottom_image_width' => $data['bottom_image_width'],
+                'bottom_image_alt' => $data['bottom_image_alt'],
+            ]);
+
+            if (isset($data['top_image_file'])) {
+                if ($data['top_image_file'] instanceof UploadedFile) {
+                    $manager = new ImageManager(['driver' => 'gd']); // or 'imagick' if you prefer
+                
+                    $path = 'theme/' . $theme->id . '/' . Str::random(40) . '.webp';
+                
+                    $image = $manager->make($data['top_image_file']->get())->encode('webp');
+                
+                    Storage::put($path, (string) $image); // cast to string to avoid binary issues
+    
+                    $heroModal->update([
+                        'top_image' => $path
+                    ]);
+                }
+            }
+
+            if (isset($data['bottom_image_file'])) {
+                if ($data['bottom_image_file'] instanceof UploadedFile) {
+                    $manager = new ImageManager(['driver' => 'gd']); // or 'imagick' if you prefer
+                
+                    $path = 'theme/' . $theme->id . '/' . Str::random(40) . '.webp';
+                
+                    $image = $manager->make($data['bottom_image_file']->get())->encode('webp');
+                
+                    Storage::put($path, (string) $image); // cast to string to avoid binary issues
+    
+                    $heroModal->update([
+                        'bottom_image' => $path
+                    ]);
+                }
+            }
+        }
     }
 
     /**
@@ -93,7 +165,7 @@ class ThemeCustomizationRepository extends Repository
                 try {
                     $manager = new ImageManager;
 
-                    $path = 'theme/'.$theme->id.'/'.Str::random(40).'.webp';
+                    $path = 'theme/' . $theme->id . '/' . Str::random(40) . '.webp';
 
                     Storage::put($path, $manager->make($image['image'])->encode('webp'));
                 } catch (\Exception $e) {
@@ -107,7 +179,7 @@ class ThemeCustomizationRepository extends Repository
                 }
 
                 $options['images'][] = [
-                    'image' => 'storage/'.$path,
+                    'image' => 'storage/' . $path,
                     'link'  => $image['link'],
                     'title' => $image['title'],
                 ];

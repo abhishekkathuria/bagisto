@@ -102,6 +102,8 @@
 
                 <!-- Services-content Template -->
                 @includeWhen($theme->type === 'services_content', 'admin::settings.themes.edit.services-content')
+
+                @includeWhen($theme->type === 'hero_section', 'admin::settings.themes.edit.hero-section')
             </div>
 
             <!-- General -->
