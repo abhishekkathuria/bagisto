@@ -8,9 +8,6 @@ use Webkul\BulkImport\Jobs\FileImport as JobsFileImport;
 
 class CustomFileImport implements ToCollection
 {
-    /**
-     * @param Collection $collection
-     */
     public function collection(Collection $collection)
     {
         $rows = $collection->values(); // Optional: ->slice(1) if first row is header

@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Webkul\BulkImport\Imports\CustomFileImport;
 
 class BulkImportController extends Controller
-{   
+{
     /**
      * Display the bulk import form.
      */
@@ -23,7 +23,7 @@ class BulkImportController extends Controller
     {
         $file = request()->file('file');
 
-        $import = new CustomFileImport();
+        $import = new CustomFileImport;
 
         Excel::import($import, $file);
 

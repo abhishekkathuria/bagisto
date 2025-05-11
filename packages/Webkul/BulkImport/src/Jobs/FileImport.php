@@ -27,25 +27,27 @@ class FileImport implements ShouldQueue
         $collection = collect($this->chunk);
 
         foreach ($collection as $key => $record) {
-            if ($key == 0 || !$record[0]) continue;
+            if ($key == 0 || ! $record[0]) {
+                continue;
+            }
 
             $count = 0;
 
             $categoryTranslation = app('Webkul\Category\Models\CategoryTranslation');
             $categoryExist = $categoryTranslation->where('name', $record[6])->first();
 
-            if (!$categoryExist) {
+            if (! $categoryExist) {
                 $categoryRepo = app('Webkul\Category\Repositories\CategoryRepository');
                 $category = $categoryRepo->create([
-                    'locale' => 'en',
-                    'name' => $record[6],
-                    'description' => $record[6],
-                    'slug' => Str::slug($record[6]),
-                    'status' => 1,
-                    'position' => 1,
+                    'locale'       => 'en',
+                    'name'         => $record[6],
+                    'description'  => $record[6],
+                    'slug'         => Str::slug($record[6]),
+                    'status'       => 1,
+                    'position'     => 1,
                     'display_mode' => 'products_and_description',
-                    'parent_id' => 1,
-                    'attributes' => [11, 23, 24, 25]
+                    'parent_id'    => 1,
+                    'attributes'   => [11, 23, 24, 25],
                 ]);
 
                 Event::dispatch('catalog.category.create.after', $category);
@@ -64,40 +66,40 @@ class FileImport implements ShouldQueue
             $productRepository = app('Webkul\Product\Repositories\ProductRepository');
 
             $productExist = $productRepository->findOneWhere(['sku' => $record[0]]);
-            if (!$productExist) {
+            if (! $productExist) {
                 $productExist = $productRepository->create([
-                    'sku' => $record[0],
-                    'type' => 'simple',
+                    'sku'                 => $record[0],
+                    'type'                => 'simple',
                     'attribute_family_id' => 1,
                 ]);
                 Event::dispatch('catalog.product.create.after', $productExist);
             }
 
             $productArr = [
-                "channel" => "default",
-                "locale" => "en",
-                "sku" => $record[0],
-                "name" => $record[7],
-                "url_key" => Str::slug($record[7]),
-                "color" => $colorRow->id,
-                "size" => $sizeRow->id,
-                "allow_backorder" => "1",
-                "short_description" => $record[1],
-                "description" => $record[1],
-                "price" => $record[5],
-                "cost" => $record[5],
-                "new" => "1",
-                "featured" => "1",
-                "visible_individually" => "1",
-                "status" => "1",
-                "weight" => 0,
-                "guest_checkout" => "1",
-                "channels" => [1],
-                "categories" => [$category->id],
+                'channel'              => 'default',
+                'locale'               => 'en',
+                'sku'                  => $record[0],
+                'name'                 => $record[7],
+                'url_key'              => Str::slug($record[7]),
+                'color'                => $colorRow->id,
+                'size'                 => $sizeRow->id,
+                'allow_backorder'      => '1',
+                'short_description'    => $record[1],
+                'description'          => $record[1],
+                'price'                => $record[5],
+                'cost'                 => $record[5],
+                'new'                  => '1',
+                'featured'             => '1',
+                'visible_individually' => '1',
+                'status'               => '1',
+                'weight'               => 0,
+                'guest_checkout'       => '1',
+                'channels'             => [1],
+                'categories'           => [$category->id],
             ];
 
             if ($record[4]) {
-                $productArr['manage_stock'] = "1";
+                $productArr['manage_stock'] = '1';
                 $productArr['inventories'] = [1 => $record[4]];
             }
 
@@ -111,7 +113,7 @@ class FileImport implements ShouldQueue
                     ->delete();
 
                 DB::table('product_super_attributes')->insert([
-                    'product_id' => $product->id,
+                    'product_id'   => $product->id,
                     'attribute_id' => $attribute,
                 ]);
             }
@@ -125,23 +127,23 @@ class FileImport implements ShouldQueue
 
             if ($count > 1) {
                 $productExist->update([
-                    'sku' => $record[0],
-                    'type' => 'configurable',
+                    'sku'                 => $record[0],
+                    'type'                => 'configurable',
                     'attribute_family_id' => 1,
                 ]);
 
                 $variantProduct = $productRepository->create([
-                    'sku' => $record[0] . "-" . $key,
-                    'type' => 'simple',
+                    'sku'                 => $record[0].'-'.$key,
+                    'type'                => 'simple',
                     'attribute_family_id' => 1,
-                    'parent_id' => $productExist->id,
+                    'parent_id'           => $productExist->id,
                 ]);
 
                 Event::dispatch('catalog.product.update.after', $variantProduct);
 
                 $variantArr = array_merge($productArr, [
-                    'sku' => $record[0] . "-" . $key,
-                    'url_key' => Str::slug($record[7]) . "-" . $key,
+                    'sku'       => $record[0].'-'.$key,
+                    'url_key'   => Str::slug($record[7]).'-'.$key,
                     'parent_id' => $productExist->id,
                 ]);
 
