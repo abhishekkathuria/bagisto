@@ -95,7 +95,8 @@
             "Webkul\\Tax\\": "packages/Webkul/Tax/src",
             "Webkul\\Theme\\": "packages/Webkul/Theme/src",
             "Webkul\\User\\": "packages/Webkul/User/src",
-            "Webkul\\BulkImport\\": "packages/Webkul/BulkImport/src"
+            "Webkul\\BulkImport\\": "packages/Webkul/BulkImport/src",
+            "Webkul\\OrderManagement\\": "packages/Webkul/OrderManagement/src"
         }
     },
     "autoload-dev": {

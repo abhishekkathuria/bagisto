@@ -44,4 +44,5 @@ return [
     Webkul\Theme\Providers\ThemeServiceProvider::class,
     Webkul\User\Providers\UserServiceProvider::class,
     Webkul\BulkImport\Providers\BulkServiceProvider::class,
+    Webkul\OrderManagement\Providers\OrderManagementServiceProvider::class,
 ];
