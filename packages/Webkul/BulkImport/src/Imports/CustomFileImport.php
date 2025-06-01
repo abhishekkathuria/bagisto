@@ -10,21 +10,6 @@ use Webkul\BulkImport\Jobs\FileImport as JobsFileImport;
 
 class CustomFileImport implements ToCollection
 {
-    protected $locale;
-
-    /**
-     * CustomFileImport constructor.
-     *
-     * @param string $locale
-     */
-    public function __construct($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    /**
-     * @param Collection $collection
-     */
     public function collection(Collection $collection)
     {
         $rows = $collection

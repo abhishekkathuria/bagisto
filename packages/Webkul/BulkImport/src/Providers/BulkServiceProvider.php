@@ -25,6 +25,8 @@ class BulkServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'bulk_import');
         
+        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'bulk_import');
+
         Route::middleware(['web', PreventRequestsDuringMaintenance::class])->group(__DIR__.'/../Routes/web.php');
     }
 
@@ -34,7 +36,7 @@ class BulkServiceProvider extends ServiceProvider
     protected function registerConfig(): void
     {
         $this->mergeConfigFrom(
-            dirname(__DIR__) . '/Config/admin-menu.php',
+            dirname(__DIR__).'/Config/admin-menu.php',
             'menu.admin'
         );
     }
