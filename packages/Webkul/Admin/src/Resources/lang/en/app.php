@@ -581,15 +581,20 @@ return [
                 'title' => 'Invoices',
 
                 'datagrid' => [
-                    'action'       => 'Actions',
-                    'grand-total'  => 'Grand Total',
-                    'id'           => 'ID',
-                    'invoice-date' => 'Invoice Date',
-                    'order-id'     => 'Order ID',
-                    'overdue'      => 'Overdue',
-                    'paid'         => 'Paid',
-                    'pending'      => 'Pending',
-                    'status'       => 'Status',
+                    'action'              => 'Actions',
+                    'days-left'           => ':count day(s) left',
+                    'days-overdue'        => ':count day(s) overdue',
+                    'grand-total'         => 'Grand Total',
+                    'id'                  => 'ID',
+                    'invoice-date'        => 'Invoice Date',
+                    'mass-update-success' => 'Selected invoice updated successfully.',
+                    'order-id'            => 'Order ID',
+                    'overdue'             => 'Overdue',
+                    'overdue-by'          => 'Overdue by :count day(s)',
+                    'paid'                => 'Paid',
+                    'pending'             => 'Pending',
+                    'status'              => 'Status',
+                    'update-status'       => 'Update Status',
                 ],
             ],
 
@@ -3366,10 +3371,11 @@ return [
             'cannot-change'      => 'User cannot be changed',
             'create-success'     => 'User created successfully.',
             'delete-failed'      => 'User deleted failed.',
+            'delete-self-error'  => 'You cannot delete your own account.',
             'delete-success'     => 'User deleted successfully.',
             'delete-warning'     => 'Are you sure, you want to perform this action?',
             'incorrect-password' => 'Incorrect password',
-            'last-delete-error'  => 'Last User delete failed',
+            'last-delete-error'  => 'Atleast one admin is required.',
             'login-error'        => 'Please check your credentials and try again.',
             'update-success'     => 'User updated successfully.',
         ],
@@ -3729,6 +3735,40 @@ return [
                         'redirection-link'  => 'Redirection Link',
                     ],
 
+                    'speculation-rules' => [
+                        'enable-speculation' => 'Enable Speculation Rules',
+                        'info'               => 'Configure settings for enabling or disabling automated speculation logic.',
+                        'title'              => 'Speculation Rules',
+
+                        'prerender' => [
+                            'conservative'           => 'Conservative',
+                            'eager'                  => 'Eager',
+                            'eagerness'              => 'Prerender Eagerness Level',
+                            'eagerness-info'         => 'Controls how aggressively speculation rules are applied. Options: eager (max), moderate (default), conservative (low).',
+                            'enabled'                => 'Enable Prerender Speculation Rules',
+                            'ignore-url-params'      => 'Ignore Prerender URL Parameters',
+                            'ignore-url-params-info' => 'Specify URL parameters to ignore in speculation rules. Use pipe (|) to separate multiple parameters.',
+                            'ignore-urls'            => 'Ignore Prerender URLs',
+                            'ignore-urls-info'       => 'Enter URLs to be excluded from speculation logic. Separate multiple URLs with a pipe (|) symbol.',
+                            'info'                   => 'Set speculation rules status.',
+                            'moderate'               => 'Moderate',
+                        ],
+
+                        'prefetch' => [
+                            'conservative'           => 'Conservative',
+                            'eager'                  => 'Eager',
+                            'eagerness'              => 'Prefetch Eagerness Level',
+                            'eagerness-info'         => 'Controls how aggressively speculation rules are applied. Options: eager (max), moderate (default), conservative (low).',
+                            'enabled'                => 'Enable Prefetch Speculation Rules',
+                            'ignore-url-params'      => 'Ignore Prefetch URL Parameters',
+                            'ignore-url-params-info' => 'Specify URL parameters to ignore in speculation rules. Use pipe (|) to separate multiple parameters.',
+                            'ignore-urls'            => 'Ignore Prefetch URLs',
+                            'ignore-urls-info'       => 'Enter URLs to be excluded from speculation logic. Separate multiple URLs with a pipe (|) symbol.',
+                            'info'                   => 'Set speculation rules status.',
+                            'moderate'               => 'Moderate',
+                        ],
+                    ],
+
                     'custom-scripts' => [
                         'custom-css'        => 'Custom CSS',
                         'custom-javascript' => 'Custom Javascript',
@@ -3746,6 +3786,15 @@ return [
                         'logo-image' => 'Logo Image',
                         'title'      => 'Admin Logo',
                         'title-info' => 'Configure logo and favicon images for your website\'s front end for better branding and recognition.',
+                    ],
+
+                    'menu-category' => [
+                        'default'         => 'Default Menu',
+                        'info'            => 'This setting controls the visibility of categories in the header menu. You can choose to display only parent categories or all nested categories.',
+                        'preview-default' => 'Preview Default Menu',
+                        'preview-sidebar' => 'Preview Sidebar Menu',
+                        'sidebar'         => 'Sidebar Menu',
+                        'title'           => 'Menu Category View',
                     ],
                 ],
 
@@ -4163,13 +4212,103 @@ return [
                     ],
 
                     'social-login' => [
-                        'enable-facebook'   => 'Enable Facebook',
-                        'enable-github'     => 'Enable Github',
-                        'enable-google'     => 'Enable Google',
-                        'enable-linkedin'   => 'Enable LinkedIn',
-                        'enable-twitter'    => 'Enable Twitter',
-                        'social-login'      => 'Social Login',
-                        'social-login-info' => '"Social login" enables users to access websites using their social media accounts, streamlining registration and login processes for convenience.',
+                        'title' => 'Social Login',
+                        'info'  => '"Social login" allows users to access a website using their social media accounts, simplifying registration and login processes.',
+
+                        'google' => [
+                            'enable-google' => 'Enable Google',
+
+                            'client-id' => [
+                                'title'      => 'Client ID',
+                                'title-info' => 'Unique identifier provided by Google when creating your OAuth application.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Secret key associated with your Google OAuth client. Keep it confidential.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Redirect URL',
+                                'title-info' => 'Callback URL where users are redirected after authenticating with Google. Must match the URL configured in your Google console.',
+                            ],
+                        ],
+
+                        'facebook' => [
+                            'enable-facebook' => 'Enable Facebook',
+
+                            'client-id' => [
+                                'title'      => 'Client ID',
+                                'title-info' => 'App ID provided by Facebook when creating an app in the Facebook developer console.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'App secret associated with your Facebook application. Keep it secure and private.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Redirect URL',
+                                'title-info' => 'Callback URL where users are redirected after authenticating with Facebook. Must match the URL configured in your Facebook app settings.',
+                            ],
+                        ],
+
+                        'github' => [
+                            'enable-github' => 'Enable GitHub',
+
+                            'client-id' => [
+                                'title'      => 'Client ID',
+                                'title-info' => 'Unique identifier provided by GitHub when creating your OAuth application.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Secret key associated with your GitHub OAuth client. Keep it confidential.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Redirect URL',
+                                'title-info' => 'Callback URL where users are redirected after authenticating with GitHub. Must match the URL configured in your GitHub console.',
+                            ],
+                        ],
+
+                        'linkedin' => [
+                            'enable-linkedin' => 'Enable LinkedIn',
+
+                            'client-id' => [
+                                'title'      => 'Client ID',
+                                'title-info' => 'Unique identifier provided by LinkedIn when creating your OAuth application.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Secret key associated with your LinkedIn OAuth client. Keep it confidential.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Redirect URL',
+                                'title-info' => 'Callback URL where users are redirected after authenticating with LinkedIn. Must match the URL configured in your LinkedIn console.',
+                            ],
+                        ],
+
+                        'twitter' => [
+                            'enable-twitter' => 'Enable Twitter',
+
+                            'client-id' => [
+                                'title'      => 'Client ID',
+                                'title-info' => 'Unique identifier provided by Twitter when creating your OAuth application.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Secret key associated with your Twitter OAuth client. Keep it confidential.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Redirect URL',
+                                'title-info' => 'Callback URL where users are redirected after authenticating with Twitter. Must match the URL configured in your Twitter console.',
+                            ],
+                        ],
                     ],
                 ],
             ],

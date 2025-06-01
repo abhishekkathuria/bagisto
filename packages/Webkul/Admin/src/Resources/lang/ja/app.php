@@ -581,15 +581,20 @@ return [
                 'title' => '請求書',
 
                 'datagrid' => [
-                    'action'       => 'アクション',
-                    'grand-total'  => '総合計',
-                    'id'           => 'ID',
-                    'invoice-date' => '請求書の日付',
-                    'order-id'     => '注文ID',
-                    'overdue'      => '延滞',
-                    'paid'         => '支払済み',
-                    'pending'      => '保留中',
-                    'status'       => 'ステータス',
+                    'action'              => 'アクション',
+                    'days-left'           => '残り :count 日',
+                    'days-overdue'        => ':count 日遅れ',
+                    'grand-total'         => '総合計',
+                    'id'                  => 'ID',
+                    'invoice-date'        => '請求書の日付',
+                    'mass-update-success' => '選択された請求書が正常に更新されました。',
+                    'order-id'            => '注文ID',
+                    'overdue'             => '延滞',
+                    'overdue-by'          => ':count 日遅れ',
+                    'paid'                => '支払済み',
+                    'pending'             => '保留中',
+                    'status'              => 'ステータス',
+                    'update-status'       => 'ステータスを更新',
                 ],
             ],
 
@@ -3366,6 +3371,7 @@ return [
             'cannot-change'      => 'ユーザーは変更できません。',
             'create-success'     => 'ユーザーが正常に作成されました。',
             'delete-failed'      => 'ユーザーの削除に失敗しました。',
+            'delete-self-error'  => '自分自身のアカウントを削除することはできません。',
             'delete-success'     => 'ユーザーが正常に削除されました。',
             'delete-warning'     => 'このアクションを実行してもよろしいですか？',
             'incorrect-password' => 'パスワードが正しくありません',
@@ -3729,6 +3735,40 @@ return [
                         'redirection-link'  => 'リダイレクションリンク',
                     ],
 
+                    'speculation-rules' => [
+                        'enable-speculation' => '投機ルールを有効にする',
+                        'info'               => '自動投機ロジックの有効化または無効化の設定を構成します。',
+                        'title'              => '投機ルール',
+
+                        'prerender' => [
+                            'conservative'           => '保守的',
+                            'eager'                  => '積極的',
+                            'eagerness'              => 'Prerenderの積極性レベル',
+                            'eagerness-info'         => '投機ルールの適用度合いを制御します。オプション：積極的（最大）、中程度（デフォルト）、保守的（低）。',
+                            'enabled'                => 'Prerender投機ルールを有効にする',
+                            'ignore-url-params'      => 'PrerenderのURLパラメータを無視',
+                            'ignore-url-params-info' => '投機ルールで無視するURLパラメータを指定します。複数のパラメータはパイプ(|)で区切ってください。',
+                            'ignore-urls'            => 'PrerenderのURLを無視',
+                            'ignore-urls-info'       => '投機ロジックから除外するURLを入力してください。複数のURLはパイプ(|)で区切ってください。',
+                            'info'                   => '投機ルールの状態を設定します。',
+                            'moderate'               => '中程度',
+                        ],
+
+                        'prefetch' => [
+                            'conservative'           => '保守的',
+                            'eager'                  => '積極的',
+                            'eagerness'              => 'Prefetchの積極性レベル',
+                            'eagerness-info'         => '投機ルールの適用度合いを制御します。オプション：積極的（最大）、中程度（デフォルト）、保守的（低）。',
+                            'enabled'                => 'Prefetch投機ルールを有効にする',
+                            'ignore-url-params'      => 'PrefetchのURLパラメータを無視',
+                            'ignore-url-params-info' => '投機ルールで無視するURLパラメータを指定します。複数のパラメータはパイプ(|)で区切ってください。',
+                            'ignore-urls'            => 'PrefetchのURLを無視',
+                            'ignore-urls-info'       => '投機ロジックから除外するURLを入力してください。複数のURLはパイプ(|)で区切ってください。',
+                            'info'                   => '投機ルールの状態を設定します。',
+                            'moderate'               => '中程度',
+                        ],
+                    ],
+
                     'custom-scripts' => [
                         'custom-css'        => 'カスタムCSS',
                         'custom-javascript' => 'カスタムJavascript',
@@ -3746,6 +3786,15 @@ return [
                         'logo-image' => 'ロゴ画像',
                         'title'      => '管理者ロゴ',
                         'title-info' => 'ブランディングと認識のために、ウェブサイトのフロントエンドのロゴとファビコン画像を設定します。',
+                    ],
+
+                    'menu-category' => [
+                        'default'         => 'デフォルトメニュー',
+                        'info'            => 'この設定はヘッダーメニュー内のカテゴリの表示を制御します。親カテゴリのみを表示するか、すべてのネストされたカテゴリを表示するかを選択できます。',
+                        'preview-default' => 'デフォルトメニューのプレビュー',
+                        'preview-sidebar' => 'サイドバーメニューのプレビュー',
+                        'sidebar'         => 'サイドバーメニュー',
+                        'title'           => 'メニューカテゴリの表示',
                     ],
                 ],
 
@@ -3839,6 +3888,49 @@ return [
                     ],
                 ],
 
+                'gdpr' => [
+                    'title' => 'GDPR',
+                    'info'  => 'GDPRコンプライアンス設定',
+
+                    'settings' => [
+                        'title'   => 'GDPRコンプライアンス設定',
+                        'info'    => 'プライバシーポリシーを含むGDPRコンプライアンス設定を管理します。必要に応じてGDPR機能を有効または無効にします。',
+                        'enabled' => 'GDPRを有効にする',
+                    ],
+
+                    'agreement' => [
+                        'title'          => 'GDPR同意',
+                        'info'           => 'GDPR規制に準拠して顧客の同意を管理します。データの収集と処理のために必須の同意を有効にします。',
+                        'enable'         => '顧客の同意を有効にする',
+                        'checkbox-label' => '同意のチェックボックスラベル',
+                        'content'        => '同意の内容',
+                    ],
+
+                    'cookie' => [
+                        'bottom-left'  => '左下',
+                        'bottom-right' => '右下',
+                        'center'       => '中央',
+                        'description'  => '説明',
+                        'enable'       => 'クッキー通知を有効にする',
+                        'identifier'   => '静的ブロック識別子',
+                        'info'         => 'データ収集についてユーザーに通知し、プライバシーポリシーを遵守するためのクッキー同意設定を行います。',
+                        'position'     => 'クッキーブロックの表示位置',
+                        'title'        => 'クッキー通知設定',
+                        'top-left'     => '左上',
+                        'top-right'    => '右上',
+                    ],
+
+                    'cookie-consent' => [
+                        'title'                  => 'クッキー設定を管理する',
+                        'info'                   => '希望するクッキー設定を選択してデータの使用を制御します。さまざまな種類のクッキーに対する許可を設定します。',
+                        'strictly-necessary'     => '厳密に必要',
+                        'basic-interaction'      => '基本的な相互作用と機能',
+                        'experience-enhancement' => '体験の向上',
+                        'measurement'            => '測定',
+                        'targeting-advertising'  => 'ターゲティングと広告',
+                    ],
+                ],
+
                 'sitemap' => [
                     'info'  => 'サイトマップのオプションを設定します。',
                     'title' => 'サイトマップ',
@@ -3855,49 +3947,6 @@ return [
                         'max-url-per-file' => 'ファイルあたりの最大URL数',
                         'title'            => 'ファイル制限',
                     ],
-                ],
-            ],
-
-            'gdpr' => [
-                'title' => 'GDPR',
-                'info'  => 'GDPRコンプライアンス設定',
-
-                'settings' => [
-                    'title'   => 'GDPRコンプライアンス設定',
-                    'info'    => 'プライバシーポリシーを含むGDPRコンプライアンス設定を管理します。必要に応じてGDPR機能を有効または無効にします。',
-                    'enabled' => 'GDPRを有効にする',
-                ],
-
-                'agreement' => [
-                    'title'          => 'GDPR同意',
-                    'info'           => 'GDPR規制に準拠して顧客の同意を管理します。データの収集と処理のために必須の同意を有効にします。',
-                    'enable'         => '顧客の同意を有効にする',
-                    'checkbox-label' => '同意のチェックボックスラベル',
-                    'content'        => '同意の内容',
-                ],
-
-                'cookie' => [
-                    'bottom-left'  => '左下',
-                    'bottom-right' => '右下',
-                    'center'       => '中央',
-                    'description'  => '説明',
-                    'enable'       => 'クッキー通知を有効にする',
-                    'identifier'   => '静的ブロック識別子',
-                    'info'         => 'データ収集についてユーザーに通知し、プライバシーポリシーを遵守するためのクッキー同意設定を行います。',
-                    'position'     => 'クッキーブロックの表示位置',
-                    'title'        => 'クッキー通知設定',
-                    'top-left'     => '左上',
-                    'top-right'    => '右上',
-                ],
-
-                'cookie-consent' => [
-                    'title'                  => 'クッキー設定を管理する',
-                    'info'                   => '希望するクッキー設定を選択してデータの使用を制御します。さまざまな種類のクッキーに対する許可を設定します。',
-                    'strictly-necessary'     => '厳密に必要',
-                    'basic-interaction'      => '基本的な相互作用と機能',
-                    'experience-enhancement' => '体験の向上',
-                    'measurement'            => '測定',
-                    'targeting-advertising'  => 'ターゲティングと広告',
                 ],
             ],
 
@@ -4163,13 +4212,103 @@ return [
                     ],
 
                     'social-login' => [
-                        'enable-facebook'   => 'Facebookを有効にする',
-                        'enable-github'     => 'GitHubを有効にする',
-                        'enable-google'     => 'Googleを有効にする',
-                        'enable-linkedin'   => 'LinkedInを有効にする',
-                        'enable-twitter'    => 'Twitterを有効にする',
-                        'social-login'      => 'ソーシャルログイン',
-                        'social-login-info' => '「ソーシャルログイン」は、ユーザーがソーシャルメディアアカウントを使用してウェブサイトにアクセスできるようにすることで、登録とログインのプロセスを簡素化します。',
+                        'title' => 'ソーシャルログイン',
+                        'info'  => '「ソーシャルログイン」とは、ユーザーがソーシャルメディアアカウントを使ってウェブサイトにアクセスできる機能で、登録やログインのプロセスを簡略化します。',
+
+                        'google' => [
+                            'enable-google' => 'Googleを有効にする',
+
+                            'client-id' => [
+                                'title'      => 'クライアントID',
+                                'title-info' => 'OAuthアプリケーションを作成する際にGoogleから提供される一意の識別子です。',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'クライアントシークレット',
+                                'title-info' => 'Google OAuthクライアントに関連付けられた秘密鍵です。安全に保管してください。',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'リダイレクトURL',
+                                'title-info' => 'Google認証後にユーザーがリダイレクトされるコールバックURL。Googleコンソールに設定したURLと一致する必要があります。',
+                            ],
+                        ],
+
+                        'facebook' => [
+                            'enable-facebook' => 'Facebookを有効にする',
+
+                            'client-id' => [
+                                'title'      => 'クライアントID',
+                                'title-info' => 'Facebook開発者コンソールでアプリ作成時に提供されるアプリIDです。',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'クライアントシークレット',
+                                'title-info' => 'Facebookアプリに関連付けられたシークレットキー。安全かつ秘密に保管してください。',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'リダイレクトURL',
+                                'title-info' => 'Facebook認証後にユーザーがリダイレクトされるコールバックURL。Facebookアプリの設定に登録されたURLと一致する必要があります。',
+                            ],
+                        ],
+
+                        'github' => [
+                            'enable-github' => 'GitHubを有効にする',
+
+                            'client-id' => [
+                                'title'      => 'クライアントID',
+                                'title-info' => 'GitHubでOAuthアプリケーションを作成する際に提供される一意の識別子です。',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'クライアントシークレット',
+                                'title-info' => 'GitHub OAuthクライアントに関連付けられた秘密鍵。安全に保管してください。',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'リダイレクトURL',
+                                'title-info' => 'GitHub認証後にユーザーがリダイレクトされるコールバックURL。GitHubコンソールに設定されたURLと一致する必要があります。',
+                            ],
+                        ],
+
+                        'linkedin' => [
+                            'enable-linkedin' => 'LinkedInを有効にする',
+
+                            'client-id' => [
+                                'title'      => 'クライアントID',
+                                'title-info' => 'OAuthアプリケーション作成時にLinkedInから提供される一意の識別子です。',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'クライアントシークレット',
+                                'title-info' => 'LinkedIn OAuthクライアントに関連する秘密鍵。安全に保管してください。',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'リダイレクトURL',
+                                'title-info' => 'LinkedIn認証後にユーザーがリダイレクトされるコールバックURL。LinkedInコンソールに設定されたURLと一致する必要があります。',
+                            ],
+                        ],
+
+                        'twitter' => [
+                            'enable-twitter' => 'Twitterを有効にする',
+
+                            'client-id' => [
+                                'title'      => 'クライアントID',
+                                'title-info' => 'TwitterでOAuthアプリケーションを作成する際に提供される一意の識別子です。',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'クライアントシークレット',
+                                'title-info' => 'Twitter OAuthクライアントに関連付けられた秘密鍵。安全に保管してください。',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'リダイレクトURL',
+                                'title-info' => 'Twitter認証後にユーザーがリダイレクトされるコールバックURL。Twitterコンソールに設定されたURLと一致する必要があります。',
+                            ],
+                        ],
                     ],
                 ],
             ],

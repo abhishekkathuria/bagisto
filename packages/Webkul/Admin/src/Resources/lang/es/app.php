@@ -581,15 +581,20 @@ return [
                 'title' => 'Facturas',
 
                 'datagrid' => [
-                    'action'       => 'Acciones',
-                    'grand-total'  => 'Total General',
-                    'id'           => 'ID',
-                    'invoice-date' => 'Fecha de la Factura',
-                    'order-id'     => 'ID de Pedido',
-                    'overdue'      => 'Vencido',
-                    'paid'         => 'Pagado',
-                    'pending'      => 'Pendiente',
-                    'status'       => 'Estado',
+                    'action'              => 'Acciones',
+                    'days-left'           => 'Quedan :count día(s)',
+                    'days-overdue'        => ':count día(s) de retraso',
+                    'grand-total'         => 'Total General',
+                    'id'                  => 'ID',
+                    'invoice-date'        => 'Fecha de la Factura',
+                    'mass-update-success' => 'Factura(s) seleccionada(s) actualizada(s) correctamente.',
+                    'order-id'            => 'ID de Pedido',
+                    'overdue'             => 'Vencido',
+                    'overdue-by'          => 'Atrasado por :count día(s)',
+                    'paid'                => 'Pagado',
+                    'pending'             => 'Pendiente',
+                    'status'              => 'Estado',
+                    'update-status'       => 'Actualizar estado',
                 ],
             ],
 
@@ -3366,6 +3371,7 @@ return [
             'cannot-change'      => 'No se puede cambiar el usuario.',
             'create-success'     => 'Usuario creado con éxito.',
             'delete-failed'      => 'Error al eliminar el usuario.',
+            'delete-self-error'  => 'No puedes eliminar tu propia cuenta.',
             'delete-success'     => 'Usuario eliminado con éxito.',
             'delete-warning'     => '¿Estás seguro de que quieres realizar esta acción?',
             'incorrect-password' => 'Contraseña incorrecta',
@@ -3729,6 +3735,40 @@ return [
                         'redirection-link'  => 'Enlace de Redirección',
                     ],
 
+                    'speculation-rules' => [
+                        'enable-speculation' => 'Habilitar reglas de especulación',
+                        'info'               => 'Configura los ajustes para habilitar o deshabilitar la lógica de especulación automática.',
+                        'title'              => 'Reglas de especulación',
+
+                        'prerender' => [
+                            'conservative'           => 'Conservador',
+                            'eager'                  => 'Ansioso',
+                            'eagerness'              => 'Nivel de anticipación del prerender',
+                            'eagerness-info'         => 'Controla cuán agresivamente se aplican las reglas de especulación. Opciones: ansioso (máximo), moderado (predeterminado), conservador (bajo).',
+                            'enabled'                => 'Habilitar reglas de especulación para prerender',
+                            'ignore-url-params'      => 'Ignorar parámetros de URL para prerender',
+                            'ignore-url-params-info' => 'Especifica los parámetros de URL a ignorar en las reglas de especulación. Usa una barra vertical (|) para separar múltiples parámetros.',
+                            'ignore-urls'            => 'Ignorar URLs para prerender',
+                            'ignore-urls-info'       => 'Introduce las URLs que deben excluirse de la lógica de especulación. Separa múltiples URLs con una barra vertical (|).',
+                            'info'                   => 'Configura el estado de las reglas de especulación.',
+                            'moderate'               => 'Moderado',
+                        ],
+
+                        'prefetch' => [
+                            'conservative'           => 'Conservador',
+                            'eager'                  => 'Ansioso',
+                            'eagerness'              => 'Nivel de anticipación del prefetch',
+                            'eagerness-info'         => 'Controla cuán agresivamente se aplican las reglas de especulación. Opciones: ansioso (máximo), moderado (predeterminado), conservador (bajo).',
+                            'enabled'                => 'Habilitar reglas de especulación para prefetch',
+                            'ignore-url-params'      => 'Ignorar parámetros de URL para prefetch',
+                            'ignore-url-params-info' => 'Especifica los parámetros de URL a ignorar en las reglas de especulación. Usa una barra vertical (|) para separar múltiples parámetros.',
+                            'ignore-urls'            => 'Ignorar URLs para prefetch',
+                            'ignore-urls-info'       => 'Introduce las URLs que deben excluirse de la lógica de especulación. Separa múltiples URLs con una barra vertical (|).',
+                            'info'                   => 'Configura el estado de las reglas de especulación.',
+                            'moderate'               => 'Moderado',
+                        ],
+                    ],
+
                     'custom-scripts' => [
                         'custom-css'        => 'CSS Personalizado',
                         'custom-javascript' => 'Javascript Personalizado',
@@ -3746,6 +3786,15 @@ return [
                         'logo-image' => 'Imagen de Logotipo',
                         'title'      => 'Logotipo de Administrador',
                         'title-info' => 'Configure imágenes de logotipo y favicon para la interfaz de su sitio web para una mejor marca y reconocimiento.',
+                    ],
+
+                    'menu-category' => [
+                        'default'         => 'Menú predeterminado',
+                        'info'            => 'Esta configuración controla la visibilidad de las categorías en el menú de encabezado. Puedes elegir mostrar solo las categorías principales o todas las categorías anidadas.',
+                        'preview-default' => 'Vista previa del menú predeterminado',
+                        'preview-sidebar' => 'Vista previa del menú lateral',
+                        'sidebar'         => 'Menú lateral',
+                        'title'           => 'Vista de categoría del menú',
                     ],
                 ],
 
@@ -3839,6 +3888,49 @@ return [
                     ],
                 ],
 
+                'gdpr' => [
+                    'title' => 'GDPR',
+                    'info'  => 'Configuraciones de cumplimiento de GDPR',
+
+                    'settings' => [
+                        'title'   => 'Configuraciones de cumplimiento de GDPR',
+                        'info'    => 'Administre las configuraciones de cumplimiento de GDPR, incluida la política de privacidad. Habilite o deshabilite las funciones de GDPR según sea necesario.',
+                        'enabled' => 'Habilitar GDPR',
+                    ],
+
+                    'agreement' => [
+                        'title'          => 'Acuerdo de GDPR',
+                        'info'           => 'Administre el consentimiento de los clientes de acuerdo con las regulaciones de GDPR. Habilite el consentimiento obligatorio para la recopilación y el procesamiento de datos.',
+                        'enable'         => 'Habilitar consentimiento del cliente',
+                        'checkbox-label' => 'Etiqueta de la casilla de verificación para el consentimiento',
+                        'content'        => 'Contenido del consentimiento',
+                    ],
+
+                    'cookie' => [
+                        'bottom-left'  => 'Abajo a la izquierda',
+                        'bottom-right' => 'Abajo a la derecha',
+                        'center'       => 'Centro',
+                        'description'  => 'Descripción',
+                        'enable'       => 'Habilitar notificación de cookies',
+                        'identifier'   => 'Identificador de bloque estático',
+                        'info'         => 'Configure las configuraciones de consentimiento de cookies para informar a los usuarios sobre la recopilación de datos y cumplir con las políticas de privacidad.',
+                        'position'     => 'Posición de visualización del bloque de cookies',
+                        'title'        => 'Configuraciones de notificación de cookies',
+                        'top-left'     => 'Arriba a la izquierda',
+                        'top-right'    => 'Arriba a la derecha',
+                    ],
+
+                    'cookie-consent' => [
+                        'title'                  => 'Administre sus configuraciones de cookies',
+                        'info'                   => 'Controle cómo se utilizan sus datos seleccionando las configuraciones de cookies preferidas. Ajuste los permisos para diferentes tipos de cookies.',
+                        'strictly-necessary'     => 'Estrictamente necesario',
+                        'basic-interaction'      => 'Interacción y funcionalidad básica',
+                        'experience-enhancement' => 'Mejora de la experiencia',
+                        'measurement'            => 'Medición',
+                        'targeting-advertising'  => 'Segmentación y publicidad',
+                    ],
+                ],
+
                 'sitemap' => [
                     'info'  => 'Configurar opciones del mapa del sitio.',
                     'title' => 'Mapa del Sitio',
@@ -3855,49 +3947,6 @@ return [
                         'max-url-per-file' => 'Número máximo de URLs por archivo',
                         'title'            => 'Límites de Archivo',
                     ],
-                ],
-            ],
-
-            'gdpr' => [
-                'title' => 'GDPR',
-                'info'  => 'Configuraciones de cumplimiento de GDPR',
-
-                'settings' => [
-                    'title'   => 'Configuraciones de cumplimiento de GDPR',
-                    'info'    => 'Administre las configuraciones de cumplimiento de GDPR, incluida la política de privacidad. Habilite o deshabilite las funciones de GDPR según sea necesario.',
-                    'enabled' => 'Habilitar GDPR',
-                ],
-
-                'agreement' => [
-                    'title'          => 'Acuerdo de GDPR',
-                    'info'           => 'Administre el consentimiento de los clientes de acuerdo con las regulaciones de GDPR. Habilite el consentimiento obligatorio para la recopilación y el procesamiento de datos.',
-                    'enable'         => 'Habilitar consentimiento del cliente',
-                    'checkbox-label' => 'Etiqueta de la casilla de verificación para el consentimiento',
-                    'content'        => 'Contenido del consentimiento',
-                ],
-
-                'cookie' => [
-                    'bottom-left'  => 'Abajo a la izquierda',
-                    'bottom-right' => 'Abajo a la derecha',
-                    'center'       => 'Centro',
-                    'description'  => 'Descripción',
-                    'enable'       => 'Habilitar notificación de cookies',
-                    'identifier'   => 'Identificador de bloque estático',
-                    'info'         => 'Configure las configuraciones de consentimiento de cookies para informar a los usuarios sobre la recopilación de datos y cumplir con las políticas de privacidad.',
-                    'position'     => 'Posición de visualización del bloque de cookies',
-                    'title'        => 'Configuraciones de notificación de cookies',
-                    'top-left'     => 'Arriba a la izquierda',
-                    'top-right'    => 'Arriba a la derecha',
-                ],
-
-                'cookie-consent' => [
-                    'title'                  => 'Administre sus configuraciones de cookies',
-                    'info'                   => 'Controle cómo se utilizan sus datos seleccionando las configuraciones de cookies preferidas. Ajuste los permisos para diferentes tipos de cookies.',
-                    'strictly-necessary'     => 'Estrictamente necesario',
-                    'basic-interaction'      => 'Interacción y funcionalidad básica',
-                    'experience-enhancement' => 'Mejora de la experiencia',
-                    'measurement'            => 'Medición',
-                    'targeting-advertising'  => 'Segmentación y publicidad',
                 ],
             ],
 
@@ -4163,13 +4212,103 @@ return [
                     ],
 
                     'social-login' => [
-                        'enable-facebook'   => 'Habilitar Facebook',
-                        'enable-github'     => 'Habilitar Github',
-                        'enable-google'     => 'Habilitar Google',
-                        'enable-linkedin'   => 'Habilitar LinkedIn',
-                        'enable-twitter'    => 'Habilitar Twitter',
-                        'social-login'      => 'Inicio de sesión social',
-                        'social-login-info' => '"Inicio de sesión social" permite a los usuarios acceder a sitios web utilizando sus cuentas de redes sociales, simplificando los procesos de registro e inicio de sesión para mayor comodidad.',
+                        'title' => 'Inicio de sesión social',
+                        'info'  => '"El inicio de sesión social" permite a los usuarios acceder a un sitio web utilizando sus cuentas de redes sociales, simplificando los procesos de registro e inicio de sesión.',
+
+                        'google' => [
+                            'enable-google' => 'Habilitar Google',
+
+                            'client-id' => [
+                                'title'      => 'ID de cliente',
+                                'title-info' => 'Identificador único proporcionado por Google al crear tu aplicación OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Secreto de cliente',
+                                'title-info' => 'Clave secreta asociada a tu cliente OAuth de Google. Mantenla confidencial.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Redirección',
+                                'title-info' => 'URL de retorno donde los usuarios son redirigidos después de autenticarse con Google. Debe coincidir con la URL configurada en tu consola de Google.',
+                            ],
+                        ],
+
+                        'facebook' => [
+                            'enable-facebook' => 'Habilitar Facebook',
+
+                            'client-id' => [
+                                'title'      => 'ID de cliente',
+                                'title-info' => 'ID de la aplicación proporcionado por Facebook al crear una aplicación en la consola de desarrolladores.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Secreto de cliente',
+                                'title-info' => 'Secreto de la aplicación asociado a tu aplicación de Facebook. Mantenlo seguro y privado.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL de redirección',
+                                'title-info' => 'URL de retorno donde los usuarios son redirigidos después de autenticarse con Facebook. Debe coincidir con la URL configurada en la configuración de tu aplicación de Facebook.',
+                            ],
+                        ],
+
+                        'github' => [
+                            'enable-github' => 'Habilitar GitHub',
+
+                            'client-id' => [
+                                'title'      => 'ID de cliente',
+                                'title-info' => 'Identificador único proporcionado por GitHub al crear tu aplicación OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Secreto de cliente',
+                                'title-info' => 'Clave secreta asociada a tu cliente OAuth de GitHub. Mantenla confidencial.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL de redirección',
+                                'title-info' => 'URL de retorno donde los usuarios son redirigidos después de autenticarse con GitHub. Debe coincidir con la URL configurada en tu consola de GitHub.',
+                            ],
+                        ],
+
+                        'linkedin' => [
+                            'enable-linkedin' => 'Habilitar LinkedIn',
+
+                            'client-id' => [
+                                'title'      => 'ID de cliente',
+                                'title-info' => 'Identificador único proporcionado por LinkedIn al crear tu aplicación OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Secreto de cliente',
+                                'title-info' => 'Clave secreta asociada a tu cliente OAuth de LinkedIn. Mantenla confidencial.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL de redirección',
+                                'title-info' => 'URL de retorno donde los usuarios son redirigidos después de autenticarse con LinkedIn. Debe coincidir con la URL configurada en tu consola de LinkedIn.',
+                            ],
+                        ],
+
+                        'twitter' => [
+                            'enable-twitter' => 'Habilitar Twitter',
+
+                            'client-id' => [
+                                'title'      => 'ID de cliente',
+                                'title-info' => 'Identificador único proporcionado por Twitter al crear tu aplicación OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Secreto de cliente',
+                                'title-info' => 'Clave secreta asociada a tu cliente OAuth de Twitter. Mantenla confidencial.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL de redirección',
+                                'title-info' => 'URL de retorno donde los usuarios son redirigidos después de autenticarse con Twitter. Debe coincidir con la URL configurada en tu consola de Twitter.',
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -4506,55 +4645,55 @@ return [
             ],
 
             'sidebar' => [
-                'atributos'                 => 'Atributos',
-                'booking-product'           => 'Reservas',
-                'búsqueda-y-seo'            => 'Búsqueda y SEO',
-                'campañas'                  => 'Campañas',
-                'canales'                   => 'Canales',
-                'categorías'                => 'Categorías',
-                'categorías-de-impuestos'   => 'Categorías de Impuestos',
-                'catálogo'                  => 'Catálogo',
-                'clientes'                  => 'Clientes',
-                'cms'                       => 'CMS',
-                'colapsar'                  => 'Colapsar',
-                'comunicaciones'            => 'Comunicaciones',
-                'configuración'             => 'Configuración',
-                'configurar'                => 'Configurar',
-                'descuento'                 => 'Descuento',
-                'envíos'                    => 'Envíos',
-                'eventos'                   => 'Eventos',
-                'facturas'                  => 'Facturas',
-                'familias-de-atributos'     => 'Familias de Atributos',
-                'fuentes-de-inventario'     => 'Fuentes de Inventario',
-                'grupos'                    => 'Grupos',
-                'importaciones'             => 'Importaciones',
-                'impuestos'                 => 'Impuestos',
-                'informe'                   => 'Informe',
-                'localizaciones'            => 'Localizaciones',
-                'mapas-del-sitio'           => 'Mapas del Sitio',
-                'marketing'                 => 'Marketing',
-                'modo-oscuro'               => 'Modo Oscuro',
-                'monedas'                   => 'Monedas',
-                'panel-de-control'          => 'Panel de Control',
-                'pedidos'                   => 'Pedidos',
-                'plantillas-de-correo'      => 'Plantillas de Correo Electrónico',
-                'productos'                 => 'Productos',
-                'promociones'               => 'Promociones',
-                'reembolsos'                => 'Reembolsos',
-                'reescrituras-de-url'       => 'Reescrituras de URL',
-                'reseñas'                   => 'Reseñas',
-                'roles'                     => 'Roles',
-                'sinónimos-de-búsqueda'     => 'Sinónimos de Búsqueda',
-                'solicitudes-de-datos-gdpr' => 'Solicitudes de Datos GDPR',
-                'suscripciones-al-boletín'  => 'Suscripciones al Boletín de Noticias',
-                'tasas-de-cambio'           => 'Tasas de Cambio',
-                'tasas-de-impuestos'        => 'Tasas de Impuestos',
-                'temas'                     => 'Temas',
-                'transacciones'             => 'Transacciones',
-                'transferencia-de-datos'    => 'Transferencia de datos',
-                'términos-de-búsqueda'      => 'Términos de búsqueda',
-                'usuarios'                  => 'Usuarios',
-                'ventas'                    => 'Ventas',
+                'attribute-families'       => 'Familias de atributos',
+                'attributes'               => 'Atributos',
+                'booking-product'          => 'Reservas',
+                'campaigns'                => 'Campañas',
+                'catalog'                  => 'Catálogo',
+                'categories'               => 'Categorías',
+                'channels'                 => 'Canales',
+                'cms'                      => 'CMS',
+                'collapse'                 => 'Colapsar',
+                'communications'           => 'Comunicaciones',
+                'configure'                => 'Configurar',
+                'currencies'               => 'Monedas',
+                'customers'                => 'Clientes',
+                'dashboard'                => 'Panel de control',
+                'data-transfer'            => 'Transferencia de datos',
+                'discount'                 => 'Descuento',
+                'email-templates'          => 'Plantillas de correo',
+                'events'                   => 'Eventos',
+                'exchange-rates'           => 'Tasas de cambio',
+                'gdpr-data-requests'       => 'Solicitudes de datos GDPR',
+                'groups'                   => 'Grupos',
+                'imports'                  => 'Importaciones',
+                'inventory-sources'        => 'Fuentes de inventario',
+                'invoices'                 => 'Facturas',
+                'locales'                  => 'Idiomas',
+                'marketing'                => 'Marketing',
+                'mode'                     => 'Modo oscuro',
+                'newsletter-subscriptions' => 'Suscripciones al boletín',
+                'orders'                   => 'Pedidos',
+                'products'                 => 'Productos',
+                'promotions'               => 'Promociones',
+                'refunds'                  => 'Reembolsos',
+                'reporting'                => 'Informes',
+                'reviews'                  => 'Reseñas',
+                'roles'                    => 'Roles',
+                'sales'                    => 'Ventas',
+                'search-seo'               => 'Búsqueda y SEO',
+                'search-synonyms'          => 'Sinónimos de búsqueda',
+                'search-terms'             => 'Términos de búsqueda',
+                'settings'                 => 'Configuraciones',
+                'shipments'                => 'Envíos',
+                'sitemaps'                 => 'Mapas del sitio',
+                'tax-categories'           => 'Categorías de impuestos',
+                'tax-rates'                => 'Tasas de impuestos',
+                'taxes'                    => 'Impuestos',
+                'themes'                   => 'Temas',
+                'transactions'             => 'Transacciones',
+                'url-rewrites'             => 'Reescrituras de URL',
+                'users'                    => 'Usuarios',
             ],
 
             'powered-by' => [

@@ -581,15 +581,20 @@ return [
                 'title' => 'Rechnungen',
 
                 'datagrid' => [
-                    'action'       => 'Aktionen',
-                    'grand-total'  => 'Gesamtsumme',
-                    'id'           => 'ID',
-                    'invoice-date' => 'Rechnungsdatum',
-                    'order-id'     => 'Bestellnummer',
-                    'overdue'      => 'Überfällig',
-                    'paid'         => 'Bezahlt',
-                    'pending'      => 'Ausstehend',
-                    'status'       => 'Status',
+                    'action'              => 'Aktionen',
+                    'days-left'           => 'Noch :count Tag(e)',
+                    'days-overdue'        => ':count Tag(e) überfällig',
+                    'grand-total'         => 'Gesamtsumme',
+                    'id'                  => 'ID',
+                    'invoice-date'        => 'Rechnungsdatum',
+                    'mass-update-success' => 'Ausgewählte Rechnungen wurden erfolgreich aktualisiert.',
+                    'order-id'            => 'Bestellnummer',
+                    'overdue'             => 'Überfällig',
+                    'overdue-by'          => 'Überfällig seit :count Tag(en)',
+                    'paid'                => 'Bezahlt',
+                    'pending'             => 'Ausstehend',
+                    'status'              => 'Status',
+                    'update-status'       => 'Status aktualisieren',
                 ],
             ],
 
@@ -3366,6 +3371,7 @@ return [
             'cannot-change'      => 'Benutzer kann nicht geändert werden.',
             'create-success'     => 'Benutzer erfolgreich erstellt.',
             'delete-failed'      => 'Benutzerlöschung fehlgeschlagen.',
+            'delete-self-error'  => 'Sie können Ihr eigenes Konto nicht löschen.',
             'delete-success'     => 'Benutzer erfolgreich gelöscht.',
             'delete-warning'     => 'Sind Sie sicher, dass Sie diese Aktion ausführen möchten?',
             'incorrect-password' => 'Falsches Passwort',
@@ -3729,6 +3735,40 @@ return [
                         'redirection-link'  => 'Umleitungslink',
                     ],
 
+                    'speculation-rules' => [
+                        'enable-speculation' => 'Spekulationsregeln aktivieren',
+                        'info'               => 'Konfigurieren Sie die Einstellungen zum Aktivieren oder Deaktivieren der automatischen Spekulationslogik.',
+                        'title'              => 'Spekulationsregeln',
+
+                        'prerender' => [
+                            'conservative'           => 'Konservativ',
+                            'eager'                  => 'Eifrig',
+                            'eagerness'              => 'Prerender-Eifer-Stufe',
+                            'eagerness-info'         => 'Steuert, wie aggressiv die Spekulationsregeln angewendet werden. Optionen: eifrig (maximal), moderat (Standard), konservativ (niedrig).',
+                            'enabled'                => 'Prerender-Spekulationsregeln aktivieren',
+                            'ignore-url-params'      => 'Prerender-URL-Parameter ignorieren',
+                            'ignore-url-params-info' => 'Geben Sie URL-Parameter an, die in den Spekulationsregeln ignoriert werden sollen. Verwenden Sie ein Pipe-Zeichen (|) zur Trennung mehrerer Parameter.',
+                            'ignore-urls'            => 'Prerender-URLs ignorieren',
+                            'ignore-urls-info'       => 'Geben Sie URLs an, die von der Spekulationslogik ausgeschlossen werden sollen. Trennen Sie mehrere URLs mit einem Pipe-Zeichen (|).',
+                            'info'                   => 'Legen Sie den Status der Spekulationsregeln fest.',
+                            'moderate'               => 'Moderat',
+                        ],
+
+                        'prefetch' => [
+                            'conservative'           => 'Konservativ',
+                            'eager'                  => 'Eifrig',
+                            'eagerness'              => 'Prefetch-Eifer-Stufe',
+                            'eagerness-info'         => 'Steuert, wie aggressiv die Spekulationsregeln angewendet werden. Optionen: eifrig (maximal), moderat (Standard), konservativ (niedrig).',
+                            'enabled'                => 'Prefetch-Spekulationsregeln aktivieren',
+                            'ignore-url-params'      => 'Prefetch-URL-Parameter ignorieren',
+                            'ignore-url-params-info' => 'Geben Sie URL-Parameter an, die in den Spekulationsregeln ignoriert werden sollen. Verwenden Sie ein Pipe-Zeichen (|) zur Trennung mehrerer Parameter.',
+                            'ignore-urls'            => 'Prefetch-URLs ignorieren',
+                            'ignore-urls-info'       => 'Geben Sie URLs an, die von der Spekulationslogik ausgeschlossen werden sollen. Trennen Sie mehrere URLs mit einem Pipe-Zeichen (|).',
+                            'info'                   => 'Legen Sie den Status der Spekulationsregeln fest.',
+                            'moderate'               => 'Moderat',
+                        ],
+                    ],
+
                     'custom-scripts' => [
                         'custom-css'        => 'Benutzerdefiniertes CSS',
                         'custom-javascript' => 'Benutzerdefiniertes JavaScript',
@@ -3746,6 +3786,15 @@ return [
                         'logo-image' => 'Logo-Bild',
                         'title'      => 'Admin-Logo',
                         'title-info' => 'Konfigurieren Sie das Logo und das Favicon-Bild für das Frontend Ihrer Website für eine bessere Markenbildung und Wiedererkennung.',
+                    ],
+
+                    'menu-category' => [
+                        'default'         => 'Standardmenü',
+                        'info'            => 'Diese Einstellung steuert die Sichtbarkeit der Kategorien im Kopfmenü. Sie können wählen, ob nur übergeordnete Kategorien oder alle verschachtelten Kategorien angezeigt werden sollen.',
+                        'preview-default' => 'Standardmenü-Vorschau',
+                        'preview-sidebar' => 'Seitenleistenmenü-Vorschau',
+                        'sidebar'         => 'Seitenleistenmenü',
+                        'title'           => 'Menükategorie-Ansicht',
                     ],
                 ],
 
@@ -3839,6 +3888,49 @@ return [
                     ],
                 ],
 
+                'gdpr' => [
+                    'title' => 'DSGVO',
+                    'info'  => 'DSGVO-Konformitätseinstellungen',
+
+                    'settings' => [
+                        'title'   => 'DSGVO-Konformitätseinstellungen',
+                        'info'    => 'Verwalten Sie die DSGVO-Konformitätseinstellungen, einschließlich der Datenschutzvereinbarung. Aktivieren oder deaktivieren Sie die DSGVO-Funktionen nach Bedarf.',
+                        'enabled' => 'DSGVO aktivieren',
+                    ],
+
+                    'agreement' => [
+                        'title'          => 'DSGVO-Vereinbarung',
+                        'info'           => 'Verwalten Sie die Zustimmung der Kunden gemäß den DSGVO-Vorschriften. Aktivieren Sie die Zustimmungspflicht für die Datenerfassung und -verarbeitung.',
+                        'enable'         => 'Kundenzustimmung aktivieren',
+                        'checkbox-label' => 'Checkbox-Beschriftung für die Zustimmung',
+                        'content'        => 'Inhalt der Zustimmung',
+                    ],
+
+                    'cookie' => [
+                        'bottom-left'  => 'Unten links',
+                        'bottom-right' => 'Unten rechts',
+                        'center'       => 'Mitte',
+                        'description'  => 'Beschreibung',
+                        'enable'       => 'Cookie-Benachrichtigung aktivieren',
+                        'identifier'   => 'Statischer Block-Identifier',
+                        'info'         => 'Konfigurieren Sie die Cookie-Zustimmungseinstellungen, um Benutzer über die Datenerfassung zu informieren und die Datenschutzbestimmungen einzuhalten.',
+                        'position'     => 'Anzeigeposition des Cookie-Blocks',
+                        'title'        => 'Cookie-Benachrichtigungseinstellungen',
+                        'top-left'     => 'Oben links',
+                        'top-right'    => 'Oben rechts',
+                    ],
+
+                    'cookie-consent' => [
+                        'title'                  => 'Verwalten Sie Ihre Cookie-Einstellungen',
+                        'info'                   => 'Kontrollieren Sie, wie Ihre Daten verwendet werden, indem Sie die bevorzugten Cookie-Einstellungen auswählen. Passen Sie die Berechtigungen für verschiedene Arten von Cookies an.',
+                        'strictly-necessary'     => 'Unbedingt erforderlich',
+                        'basic-interaction'      => 'Grundlegende Interaktion und Funktionalität',
+                        'experience-enhancement' => 'Erlebnisverbesserung',
+                        'measurement'            => 'Messung',
+                        'targeting-advertising'  => 'Targeting und Werbung',
+                    ],
+                ],
+
                 'sitemap' => [
                     'info'  => 'Sitemap-Optionen festlegen.',
                     'title' => 'Sitemap',
@@ -3855,49 +3947,6 @@ return [
                         'max-url-per-file' => 'Maximale Anzahl von URLs pro Datei',
                         'title'            => 'Dateibeschränkungen',
                     ],
-                ],
-            ],
-
-            'gdpr' => [
-                'title' => 'DSGVO',
-                'info'  => 'DSGVO-Konformitätseinstellungen',
-
-                'settings' => [
-                    'title'   => 'DSGVO-Konformitätseinstellungen',
-                    'info'    => 'Verwalten Sie die DSGVO-Konformitätseinstellungen, einschließlich der Datenschutzvereinbarung. Aktivieren oder deaktivieren Sie die DSGVO-Funktionen nach Bedarf.',
-                    'enabled' => 'DSGVO aktivieren',
-                ],
-
-                'agreement' => [
-                    'title'          => 'DSGVO-Vereinbarung',
-                    'info'           => 'Verwalten Sie die Zustimmung der Kunden gemäß den DSGVO-Vorschriften. Aktivieren Sie die Zustimmungspflicht für die Datenerfassung und -verarbeitung.',
-                    'enable'         => 'Kundenzustimmung aktivieren',
-                    'checkbox-label' => 'Checkbox-Beschriftung für die Zustimmung',
-                    'content'        => 'Inhalt der Zustimmung',
-                ],
-
-                'cookie' => [
-                    'bottom-left'  => 'Unten links',
-                    'bottom-right' => 'Unten rechts',
-                    'center'       => 'Mitte',
-                    'description'  => 'Beschreibung',
-                    'enable'       => 'Cookie-Benachrichtigung aktivieren',
-                    'identifier'   => 'Statischer Block-Identifier',
-                    'info'         => 'Konfigurieren Sie die Cookie-Zustimmungseinstellungen, um Benutzer über die Datenerfassung zu informieren und die Datenschutzbestimmungen einzuhalten.',
-                    'position'     => 'Anzeigeposition des Cookie-Blocks',
-                    'title'        => 'Cookie-Benachrichtigungseinstellungen',
-                    'top-left'     => 'Oben links',
-                    'top-right'    => 'Oben rechts',
-                ],
-
-                'cookie-consent' => [
-                    'title'                  => 'Verwalten Sie Ihre Cookie-Einstellungen',
-                    'info'                   => 'Kontrollieren Sie, wie Ihre Daten verwendet werden, indem Sie die bevorzugten Cookie-Einstellungen auswählen. Passen Sie die Berechtigungen für verschiedene Arten von Cookies an.',
-                    'strictly-necessary'     => 'Unbedingt erforderlich',
-                    'basic-interaction'      => 'Grundlegende Interaktion und Funktionalität',
-                    'experience-enhancement' => 'Erlebnisverbesserung',
-                    'measurement'            => 'Messung',
-                    'targeting-advertising'  => 'Targeting und Werbung',
                 ],
             ],
 
@@ -4163,13 +4212,103 @@ return [
                     ],
 
                     'social-login' => [
-                        'enable-facebook'   => 'Facebook aktivieren',
-                        'enable-github'     => 'Github aktivieren',
-                        'enable-google'     => 'Google aktivieren',
-                        'enable-linkedin'   => 'LinkedIn aktivieren',
-                        'enable-twitter'    => 'Twitter aktivieren',
-                        'social-login'      => 'Social Login',
-                        'social-login-info' => '"Social Login" ermöglicht es Benutzern, Websites mit ihren Social-Media-Konten zu nutzen und vereinfacht so die Registrierungs- und Anmeldeprozesse für mehr Komfort.',
+                        'title' => 'Soziale Anmeldung',
+                        'info'  => '"Soziale Anmeldung" ermöglicht es Benutzern, eine Website mit ihren Social-Media-Konten zu betreten und vereinfacht so den Registrierungs- und Anmeldeprozess.',
+
+                        'google' => [
+                            'enable-google' => 'Google aktivieren',
+
+                            'client-id' => [
+                                'title'      => 'Client-ID',
+                                'title-info' => 'Eindeutige Kennung, die von Google beim Erstellen Ihrer OAuth-Anwendung bereitgestellt wird.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client-Geheimnis',
+                                'title-info' => 'Geheimer Schlüssel, der mit Ihrem Google-OAuth-Client verknüpft ist. Bewahren Sie ihn vertraulich auf.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Weiterleitungs-URL',
+                                'title-info' => 'Rückruf-URL, zu der Benutzer nach der Authentifizierung mit Google weitergeleitet werden. Muss mit der in Ihrer Google-Konsole konfigurierten URL übereinstimmen.',
+                            ],
+                        ],
+
+                        'facebook' => [
+                            'enable-facebook' => 'Facebook aktivieren',
+
+                            'client-id' => [
+                                'title'      => 'Client-ID',
+                                'title-info' => 'App-ID, die von Facebook beim Erstellen einer Anwendung in der Facebook-Entwicklerkonsole bereitgestellt wird.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client-Geheimnis',
+                                'title-info' => 'App-Geheimnis, das mit Ihrer Facebook-Anwendung verknüpft ist. Bewahren Sie es sicher und privat auf.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Weiterleitungs-URL',
+                                'title-info' => 'Rückruf-URL, zu der Benutzer nach der Authentifizierung mit Facebook weitergeleitet werden. Muss mit der in den App-Einstellungen von Facebook konfigurierten URL übereinstimmen.',
+                            ],
+                        ],
+
+                        'github' => [
+                            'enable-github' => 'GitHub aktivieren',
+
+                            'client-id' => [
+                                'title'      => 'Client-ID',
+                                'title-info' => 'Eindeutige Kennung, die von GitHub beim Erstellen Ihrer OAuth-Anwendung bereitgestellt wird.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client-Geheimnis',
+                                'title-info' => 'Geheimer Schlüssel, der mit Ihrem GitHub-OAuth-Client verknüpft ist. Bewahren Sie ihn vertraulich auf.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Weiterleitungs-URL',
+                                'title-info' => 'Rückruf-URL, zu der Benutzer nach der Authentifizierung mit GitHub weitergeleitet werden. Muss mit der in Ihrer GitHub-Konsole konfigurierten URL übereinstimmen.',
+                            ],
+                        ],
+
+                        'linkedin' => [
+                            'enable-linkedin' => 'LinkedIn aktivieren',
+
+                            'client-id' => [
+                                'title'      => 'Client-ID',
+                                'title-info' => 'Eindeutige Kennung, die von LinkedIn beim Erstellen Ihrer OAuth-Anwendung bereitgestellt wird.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client-Geheimnis',
+                                'title-info' => 'Geheimer Schlüssel, der mit Ihrem LinkedIn-OAuth-Client verknüpft ist. Bewahren Sie ihn vertraulich auf.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Weiterleitungs-URL',
+                                'title-info' => 'Rückruf-URL, zu der Benutzer nach der Authentifizierung mit LinkedIn weitergeleitet werden. Muss mit der in Ihrer LinkedIn-Konsole konfigurierten URL übereinstimmen.',
+                            ],
+                        ],
+
+                        'twitter' => [
+                            'enable-twitter' => 'Twitter aktivieren',
+
+                            'client-id' => [
+                                'title'      => 'Client-ID',
+                                'title-info' => 'Eindeutige Kennung, die von Twitter beim Erstellen Ihrer OAuth-Anwendung bereitgestellt wird.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client-Geheimnis',
+                                'title-info' => 'Geheimer Schlüssel, der mit Ihrem Twitter-OAuth-Client verknüpft ist. Bewahren Sie ihn vertraulich auf.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Weiterleitungs-URL',
+                                'title-info' => 'Rückruf-URL, zu der Benutzer nach der Authentifizierung mit Twitter weitergeleitet werden. Muss mit der in Ihrer Twitter-Konsole konfigurierten URL übereinstimmen.',
+                            ],
+                        ],
                     ],
                 ],
             ],

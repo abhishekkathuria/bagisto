@@ -581,15 +581,20 @@ return [
                 'title' => 'Factures',
 
                 'datagrid' => [
-                    'action'       => 'Accions',
-                    'grand-total'  => 'Total General',
-                    'id'           => 'ID',
-                    'invoice-date' => 'Data de la Factura',
-                    'order-id'     => 'ID de Comanda',
-                    'overdue'      => 'Vençut',
-                    'paid'         => 'Pagat',
-                    'pending'      => 'Pendent',
-                    'status'       => 'Estat',
+                    'action'              => 'Accions',
+                    'days-left'           => 'Queden :count dia(es)',
+                    'days-overdue'        => ':count dia(es) de retard',
+                    'grand-total'         => 'Total General',
+                    'id'                  => 'ID',
+                    'invoice-date'        => 'Data de la Factura',
+                    'mass-update-success' => 'Factura seleccionada actualitzada correctament.',
+                    'order-id'            => 'ID de la Comanda',
+                    'overdue'             => 'Endarrerit',
+                    'overdue-by'          => 'Endarrerit per :count dia(es)',
+                    'paid'                => 'Pagat',
+                    'pending'             => 'Pendent',
+                    'status'              => 'Estat',
+                    'update-status'       => 'Actualitzar Estat',
                 ],
             ],
 
@@ -3366,6 +3371,7 @@ return [
             'cannot-change'      => 'No es pot canviar l\'usuari.',
             'create-success'     => 'Usuari creat amb éxit.',
             'delete-failed'      => 'Error en eliminar l\'usuari.',
+            'delete-self-error'  => 'No pots suprimir el teu propi compte.',
             'delete-success'     => 'Usuari eliminat amb éxit.',
             'delete-warning'     => 'Estàs segur que vols realitzar aquesta acció?',
             'incorrect-password' => 'Contrasenya incorrecta',
@@ -3502,6 +3508,7 @@ return [
                 'new'                           => 'Nou',
                 'no'                            => 'No',
                 'parent-id'                     => 'ID del Pare',
+                'parent-id-hint'                => 'Pots introduir múltiples ID de pare separats per comes (p. ex., 12,15,34)',
                 'category-id'                   => 'ID de categoria',
                 'preview'                       => 'Vista prèvia',
                 'product-carousel'              => 'Carrousel de Productes',
@@ -3727,6 +3734,40 @@ return [
                         'redirection-link'  => 'Enllaç de Redirecció',
                     ],
 
+                    'speculation-rules' => [
+                        'enable-speculation' => 'Habilita les regles d’especulació',
+                        'info'               => 'Configura els paràmetres per habilitar o deshabilitar la lògica automàtica d’especulació.',
+                        'title'              => 'Regles d’especulació',
+
+                        'prerender' => [
+                            'conservative'           => 'Conservador',
+                            'eager'                  => 'Entusiasta',
+                            'eagerness'              => 'Nivell d’entusiasme de prerender',
+                            'eagerness-info'         => 'Controla com s’apliquen d’agressivament les regles d’especulació. Opcions: entusiasta (màxim), moderat (per defecte), conservador (baix).',
+                            'enabled'                => 'Habilita les regles d’especulació de prerender',
+                            'ignore-url-params'      => 'Ignora els paràmetres d’URL de prerender',
+                            'ignore-url-params-info' => 'Especifica els paràmetres d’URL a ignorar en les regles d’especulació. Usa la barra vertical (|) per separar diversos paràmetres.',
+                            'ignore-urls'            => 'Ignora els URL de prerender',
+                            'ignore-urls-info'       => 'Introdueix els URL que s’han d’excloure de la lògica d’especulació. Separa múltiples URL amb la barra vertical (|).',
+                            'info'                   => 'Configura l’estat de les regles d’especulació.',
+                            'moderate'               => 'Moderat',
+                        ],
+
+                        'prefetch' => [
+                            'conservative'           => 'Conservador',
+                            'eager'                  => 'Entusiasta',
+                            'eagerness'              => 'Nivell d’entusiasme de prefetch',
+                            'eagerness-info'         => 'Controla com s’apliquen d’agressivament les regles d’especulació. Opcions: entusiasta (màxim), moderat (per defecte), conservador (baix).',
+                            'enabled'                => 'Habilita les regles d’especulació de prefetch',
+                            'ignore-url-params'      => 'Ignora els paràmetres d’URL de prefetch',
+                            'ignore-url-params-info' => 'Especifica els paràmetres d’URL a ignorar en les regles d’especulació. Usa la barra vertical (|) per separar diversos paràmetres.',
+                            'ignore-urls'            => 'Ignora els URL de prefetch',
+                            'ignore-urls-info'       => 'Introdueix els URL que s’han d’excloure de la lògica d’especulació. Separa múltiples URL amb la barra vertical (|).',
+                            'info'                   => 'Configura l’estat de les regles d’especulació.',
+                            'moderate'               => 'Moderat',
+                        ],
+                    ],
+
                     'custom-scripts' => [
                         'custom-css'        => 'CSS Personalitzat',
                         'custom-javascript' => 'Javascript Personalitzat',
@@ -3744,6 +3785,15 @@ return [
                         'logo-image' => 'Imatge de Logotip',
                         'title'      => 'Logotip d\'Administrador',
                         'title-info' => 'Configura les imatges de logotip i favicon per a la interfície del teu lloc web per a una millor marca i reconeixement.',
+                    ],
+
+                    'menu-category' => [
+                        'default'         => 'Menú per defecte',
+                        'info'            => 'Aquesta configuració controla la visibilitat de les categories al menú de capçalera. Pots triar mostrar només les categories pare o totes les categories niades.',
+                        'preview-default' => 'Previsualització del menú per defecte',
+                        'preview-sidebar' => 'Previsualització del menú lateral',
+                        'sidebar'         => 'Menú lateral',
+                        'title'           => 'Vista de la categoria del menú',
                     ],
                 ],
 
@@ -4110,64 +4160,154 @@ return [
                 ],
 
                 'settings' => [
-                    'settings-info' => 'Establir subscripcions a butlletins, verificacions de correu electrònic i inici de sessió social.',
+                    'settings-info' => 'Configura les subscripcions als butlletins, les verificacions per correu electrònic i la connexió social.',
                     'title'         => 'Configuració',
 
                     'login-as-customer' => [
-                        'allow-option' => 'Permetre iniciar sessió com a client',
-                        'title'        => 'Iniciar sessió com a client',
-                        'title-info'   => 'Habilitar la funcionalitat "Iniciar sessió com a client".',
+                        'allow-option' => 'Permetre la connexió com a client',
+                        'title'        => 'Connexió com a client',
+                        'title-info'   => 'Activa la funcionalitat "Connexió com a client".',
                     ],
 
                     'wishlist' => [
-                        'allow-option' => 'Permetre opció de llista de desitjos',
+                        'allow-option' => 'Permetre l\'opció de llista de desitjos',
                         'title'        => 'Llista de desitjos',
-                        'title-info'   => 'Habilitar o deshabilitar l\'opció de llista de desitjos.',
+                        'title-info'   => 'Activa o desactiva l\'opció de llista de desitjos.',
                     ],
 
                     'login-options' => [
                         'account'          => 'Compte',
                         'home'             => 'Inici',
-                        'redirect-to-page' => 'Redirigir el client a la pàgina seleccionada',
-                        'title'            => 'Opcions d\'inici de sessió',
-                        'title-info'       => 'Configura les opcions d\'inici de sessió per determinar la pàgina de redirecció per als clients després d\'iniciar sessió.',
+                        'redirect-to-page' => 'Redirigeix el client a la pàgina seleccionada',
+                        'title'            => 'Opcions de connexió',
+                        'title-info'       => 'Configura les opcions de connexió per determinar la pàgina de redirecció per als clients després de la connexió.',
                     ],
 
                     'create-new-account-option' => [
-                        'news-letter'      => 'Permetre butlletí informatiu',
-                        'news-letter-info' => 'Habilitar l\'opció de subscripció al butlletí a la pàgina de registre.',
-                        'title'            => 'Opcions de creació de comptes nous',
-                        'title-info'       => 'Estableix opcions per als comptes nous, incloent assignar un grup de clients per defecte i habilitar l\'opció de subscripció al butlletí durant el registre.',
+                        'news-letter'      => 'Permetre el butlletí',
+                        'news-letter-info' => 'Activa l\'opció d\'subscripció al butlletí a la pàgina d\'inscripció.',
+                        'title'            => 'Opcions per a la creació de nous comptes',
+                        'title-info'       => 'Configura les opcions per a nous comptes, incloent l\'assignació d\'un grup de clients per defecte i l\'activació de l\'opció de subscripció al butlletí durant la inscripció.',
 
                         'default-group' => [
                             'general'    => 'General',
                             'guest'      => 'Convidat',
                             'title'      => 'Grup per defecte',
-                            'title-info' => 'Assigna un grup de clients específic com a predeterminat per als nous clients.',
+                            'title-info' => 'Assigna un grup de clients específic com a per defecte per als nous clients.',
                             'wholesale'  => 'Majorista',
                         ],
                     ],
 
                     'newsletter' => [
-                        'subscription' => 'Permetre subscripció al butlletí',
+                        'subscription' => 'Permetre la subscripció al butlletí',
                         'title'        => 'Subscripció al butlletí',
-                        'title-info'   => '"Informació del butlletí" conté actualitzacions, ofertes o contingut compartit regularment a través de correus electrònics als subscriptors, mantenint-los informats i compromesos.',
+                        'title-info'   => '"Informacions del butlletí" conté actualitzacions, ofertes o contingut compartit regularment per correu electrònic amb els subscriptors, mantenint-los informats i compromesos.',
                     ],
 
                     'email' => [
-                        'email-verification' => 'Permetre verificació de correu electrònic',
-                        'title'              => 'Verificació de correu electrònic',
-                        'title-info'         => '"Verificació de correu electrònic" confirma l\'autenticitat d\'una adreça de correu electrònic, sovint enviant un enllaç de confirmació, millorant la seguretat del compte i la fiabilitat de la comunicació.',
+                        'email-verification' => 'Permetre la verificació per correu electrònic',
+                        'title'              => 'Verificació per correu electrònic',
+                        'title-info'         => '"Verificació per correu electrònic" confirma l\'autenticitat d\'una adreça de correu electrònic, sovint enviant un enllaç de confirmació, millorant la seguretat del compte i la fiabilitat de la comunicació.',
                     ],
 
                     'social-login' => [
-                        'enable-facebook'   => 'Habilitar Facebook',
-                        'enable-github'     => 'Habilitar Github',
-                        'enable-google'     => 'Habilitar Google',
-                        'enable-linkedin'   => 'Habilitar LinkedIn',
-                        'enable-twitter'    => 'Habilitar Twitter',
-                        'social-login'      => 'Inici de sessió social',
-                        'social-login-info' => '"Inici de sessió social" permet als usuaris accedir a llocs web utilitzant els seus comptes de xarxes socials, simplificant els processos de registre i inici de sessió per una major comoditat.',
+                        'title' => 'Connexió social',
+                        'info'  => '"Connexió social" permet als usuaris accedir a un lloc web utilitzant els seus comptes de xarxes socials, simplificant els processos d\'inscripció i connexió.',
+
+                        'google' => [
+                            'enable-google' => 'Activar Google',
+
+                            'client-id' => [
+                                'title'      => 'ID de client',
+                                'title-info' => 'Identificador únic proporcionat per Google en crear la teva aplicació OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Secret de client',
+                                'title-info' => 'Clau secreta associada al teu client OAuth de Google. Mantingues-la confidencial.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Redirecció',
+                                'title-info' => 'URL de retorn on els usuaris són redirigits després de la seva autenticació amb Google. Ha de coincidir amb la URL configurada a la teva consola de Google.',
+                            ],
+                        ],
+
+                        'facebook' => [
+                            'enable-facebook' => 'Activar Facebook',
+
+                            'client-id' => [
+                                'title'      => 'ID de client',
+                                'title-info' => 'ID d\'aplicació proporcionat per Facebook en crear una aplicació a la seva consola de desenvolupadors.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Secret de client',
+                                'title-info' => 'Secret d\'aplicació associat a la teva aplicació de Facebook. Mantingues-lo segur i privat.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL de redirecció',
+                                'title-info' => 'URL de retorn on els usuaris són redirigits després d\'autenticar-se amb Facebook. Ha de coincidir amb la URL configurada als paràmetres de la teva aplicació de Facebook.',
+                            ],
+                        ],
+
+                        'github' => [
+                            'enable-github' => 'Activar GitHub',
+
+                            'client-id' => [
+                                'title'      => 'ID de client',
+                                'title-info' => 'Identificador únic proporcionat per GitHub en crear la teva aplicació OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Secret de client',
+                                'title-info' => 'Clau secreta associada al teu client OAuth de GitHub. Mantingues-la confidencial.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL de redirecció',
+                                'title-info' => 'URL de retorn on els usuaris són redirigits després d\'autenticar-se amb GitHub. Ha de coincidir amb la URL configurada a la teva consola de GitHub.',
+                            ],
+                        ],
+
+                        'linkedin' => [
+                            'enable-linkedin' => 'Activar LinkedIn',
+
+                            'client-id' => [
+                                'title'      => 'ID de client',
+                                'title-info' => 'Identificador únic proporcionat per LinkedIn en crear la teva aplicació OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Secret de client',
+                                'title-info' => 'Clau secreta associada al teu client OAuth de LinkedIn. Mantingues-la confidencial.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL de redirecció',
+                                'title-info' => 'URL de retorn on els usuaris són redirigits després d\'autenticar-se amb LinkedIn. Ha de coincidir amb la URL configurada a la teva consola de LinkedIn.',
+                            ],
+                        ],
+
+                        'twitter' => [
+                            'enable-twitter' => 'Activar Twitter',
+
+                            'client-id' => [
+                                'title'      => 'ID de client',
+                                'title-info' => 'Identificador únic proporcionat per Twitter en crear la teva aplicació OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Secret de client',
+                                'title-info' => 'Clau secreta associada al teu client OAuth de Twitter. Mantingues-la confidencial.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL de redirecció',
+                                'title-info' => 'URL de retorn on els usuaris són redirigits després d\'autenticar-se amb Twitter. Ha de coincidir amb la URL configurada a la teva consola de Twitter.',
+                            ],
+                        ],
                     ],
                 ],
             ],

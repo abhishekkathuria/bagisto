@@ -581,15 +581,20 @@ return [
                 'title' => 'Faturalar',
 
                 'datagrid' => [
-                    'action'       => 'İşlemler',
-                    'grand-total'  => 'Genel Toplam',
-                    'id'           => 'Kimlik',
-                    'invoice-date' => 'Fatura Tarihi',
-                    'order-id'     => 'Sipariş Kimliği',
-                    'overdue'      => 'Vadesi Geçmiş',
-                    'paid'         => 'Ödenen',
-                    'pending'      => 'Beklemede',
-                    'status'       => 'Durum',
+                    'action'              => 'İşlemler',
+                    'days-left'           => ':count gün kaldı',
+                    'days-overdue'        => ':count gün gecikmiş',
+                    'grand-total'         => 'Genel Toplam',
+                    'id'                  => 'Kimlik',
+                    'invoice-date'        => 'Fatura Tarihi',
+                    'mass-update-success' => 'Seçilen faturalar başarıyla güncellendi.',
+                    'order-id'            => 'Sipariş Kimliği',
+                    'overdue'             => 'Vadesi Geçmiş',
+                    'overdue-by'          => ':count gün gecikmiş',
+                    'paid'                => 'Ödenen',
+                    'pending'             => 'Beklemede',
+                    'status'              => 'Durum',
+                    'update-status'       => 'Durumu güncelle',
                 ],
             ],
 
@@ -3366,6 +3371,7 @@ return [
             'cannot-change'      => 'Kullanıcı değiştirilemez.',
             'create-success'     => 'Kullanıcı başarıyla oluşturuldu.',
             'delete-failed'      => 'Kullanıcı silme başarısız.',
+            'delete-self-error'  => 'Kendi hesabınızı silemezsiniz.',
             'delete-success'     => 'Kullanıcı başarıyla silindi.',
             'delete-warning'     => 'Bu işlemi gerçekleştirmek istediğinizden emin misiniz?',
             'incorrect-password' => 'Yanlış şifre',
@@ -3729,6 +3735,40 @@ return [
                         'redirection-link'  => 'Yönlendirme Bağlantısı',
                     ],
 
+                    'speculation-rules' => [
+                        'enable-speculation' => 'Spekülasyon Kurallarını Etkinleştir',
+                        'info'               => 'Otomatik spekülasyon mantığını etkinleştirmek veya devre dışı bırakmak için ayarları yapılandırın.',
+                        'title'              => 'Spekülasyon Kuralları',
+
+                        'prerender' => [
+                            'conservative'           => 'Muhafazakar',
+                            'eager'                  => 'İstekli',
+                            'eagerness'              => 'Prerender İsteklilik Seviyesi',
+                            'eagerness-info'         => 'Spekülasyon kurallarının ne kadar agresif uygulanacağını kontrol eder. Seçenekler: istekli (maksimum), ılımlı (varsayılan), muhafazakar (düşük).',
+                            'enabled'                => 'Prerender Spekülasyon Kurallarını Etkinleştir',
+                            'ignore-url-params'      => 'Prerender URL Parametrelerini Yoksay',
+                            'ignore-url-params-info' => 'Spekülasyon kurallarında yoksayılacak URL parametrelerini belirtin. Birden çok parametreyi ayırmak için boru işareti (|) kullanın.',
+                            'ignore-urls'            => 'Prerender URL\'lerini Yoksay',
+                            'ignore-urls-info'       => 'Spekülasyon mantığından hariç tutulacak URL\'leri girin. Birden çok URL\'yi boru işareti (|) ile ayırın.',
+                            'info'                   => 'Spekülasyon kuralları durumunu ayarla.',
+                            'moderate'               => 'Ilımlı',
+                        ],
+
+                        'prefetch' => [
+                            'conservative'           => 'Muhafazakar',
+                            'eager'                  => 'İstekli',
+                            'eagerness'              => 'Prefetch İsteklilik Seviyesi',
+                            'eagerness-info'         => 'Spekülasyon kurallarının ne kadar agresif uygulanacağını kontrol eder. Seçenekler: istekli (maksimum), ılımlı (varsayılan), muhafazakar (düşük).',
+                            'enabled'                => 'Prefetch Spekülasyon Kurallarını Etkinleştir',
+                            'ignore-url-params'      => 'Prefetch URL Parametrelerini Yoksay',
+                            'ignore-url-params-info' => 'Spekülasyon kurallarında yoksayılacak URL parametrelerini belirtin. Birden çok parametreyi ayırmak için boru işareti (|) kullanın.',
+                            'ignore-urls'            => 'Prefetch URL\'lerini Yoksay',
+                            'ignore-urls-info'       => 'Spekülasyon mantığından hariç tutulacak URL\'leri girin. Birden çok URL\'yi boru işareti (|) ile ayırın.',
+                            'info'                   => 'Spekülasyon kuralları durumunu ayarla.',
+                            'moderate'               => 'Ilımlı',
+                        ],
+                    ],
+
                     'custom-scripts' => [
                         'custom-css'        => 'Özel CSS',
                         'custom-javascript' => 'Özel Javascript',
@@ -3746,6 +3786,15 @@ return [
                         'logo-image' => 'Logo Resmi',
                         'title'      => 'Yönetici Logosu',
                         'title-info' => 'Web sitenizin ön ucu için logo ve favicon görüntülerini daha iyi markalaşma ve tanınma için yapılandırın.',
+                    ],
+
+                    'menu-category' => [
+                        'default'         => 'Varsayılan Menü',
+                        'info'            => 'Bu ayar, başlık menüsündeki kategorilerin görünürlüğünü kontrol eder. Yalnızca ana kategorileri veya tüm iç içe kategorileri gösterebilirsiniz.',
+                        'preview-default' => 'Varsayılan Menüyü Önizle',
+                        'preview-sidebar' => 'Kenar Çubuğu Menüsünü Önizle',
+                        'sidebar'         => 'Kenar Çubuğu Menüsü',
+                        'title'           => 'Menü Kategori Görünümü',
                     ],
                 ],
 
@@ -3839,6 +3888,49 @@ return [
                     ],
                 ],
 
+                'gdpr' => [
+                    'title' => 'GDPR',
+                    'info'  => 'GDPR Uyumluluk Ayarları',
+
+                    'settings' => [
+                        'title'   => 'GDPR Uyumluluk Ayarları',
+                        'info'    => 'Gizlilik politikası dahil olmak üzere GDPR uyumluluk ayarlarını yönetin. Gereksinimlere göre GDPR özelliklerini etkinleştirin veya devre dışı bırakın.',
+                        'enabled' => 'GDPR\'yi Etkinleştir',
+                    ],
+
+                    'agreement' => [
+                        'title'          => 'GDPR Anlaşması',
+                        'info'           => 'GDPR düzenlemelerine uygun olarak müşteri onayını yönetin. Veri toplama ve işleme için gerekli onayı etkinleştirin.',
+                        'enable'         => 'Müşteri Onayını Etkinleştir',
+                        'checkbox-label' => 'Onay için Etiket',
+                        'content'        => 'Onay İçeriği',
+                    ],
+
+                    'cookie' => [
+                        'bottom-left'  => 'Alt Sol',
+                        'bottom-right' => 'Alt Sağ',
+                        'center'       => 'Merkez',
+                        'description'  => 'Açıklama',
+                        'enable'       => 'Çerez Bildirimini Etkinleştir',
+                        'identifier'   => 'Statik Blok ID',
+                        'info'         => 'Kullanıcıları veri toplama ve gizlilik politikası hakkında bilgilendirmek için çerez onay ayarlarını yapılandırın.',
+                        'position'     => 'Çerez Blok Konumu',
+                        'title'        => 'Çerez Bildirim Ayarları',
+                        'top-left'     => 'Üst Sol',
+                        'top-right'    => 'Üst Sağ',
+                    ],
+
+                    'cookie-consent' => [
+                        'title'                  => 'Çerez Ayarlarını Yönet',
+                        'info'                   => 'Veri kullanımı yönetimi için tercih edilen çerez ayarlarını seçin. Farklı çerez türleri için onay ayarlarını yapılandırın.',
+                        'strictly-necessary'     => 'Kesinlikle Gerekli',
+                        'basic-interaction'      => 'Temel Etkileşim ve İşlevsellik',
+                        'experience-enhancement' => 'Deneyim Geliştirme',
+                        'measurement'            => 'Ölçüm',
+                        'targeting-advertising'  => 'Hedefleme ve Reklam',
+                    ],
+                ],
+
                 'sitemap' => [
                     'info'  => 'Site haritası seçeneklerini ayarlayın.',
                     'title' => 'Site Haritası',
@@ -3855,49 +3947,6 @@ return [
                         'max-url-per-file' => 'Dosya başına maksimum URL sayısı',
                         'title'            => 'Dosya Limitleri',
                     ],
-                ],
-            ],
-
-            'gdpr' => [
-                'title' => 'GDPR',
-                'info'  => 'GDPR Uyumluluk Ayarları',
-
-                'settings' => [
-                    'title'   => 'GDPR Uyumluluk Ayarları',
-                    'info'    => 'Gizlilik politikası dahil olmak üzere GDPR uyumluluk ayarlarını yönetin. Gereksinimlere göre GDPR özelliklerini etkinleştirin veya devre dışı bırakın.',
-                    'enabled' => 'GDPR\'yi Etkinleştir',
-                ],
-
-                'agreement' => [
-                    'title'          => 'GDPR Anlaşması',
-                    'info'           => 'GDPR düzenlemelerine uygun olarak müşteri onayını yönetin. Veri toplama ve işleme için gerekli onayı etkinleştirin.',
-                    'enable'         => 'Müşteri Onayını Etkinleştir',
-                    'checkbox-label' => 'Onay için Etiket',
-                    'content'        => 'Onay İçeriği',
-                ],
-
-                'cookie' => [
-                    'bottom-left'  => 'Alt Sol',
-                    'bottom-right' => 'Alt Sağ',
-                    'center'       => 'Merkez',
-                    'description'  => 'Açıklama',
-                    'enable'       => 'Çerez Bildirimini Etkinleştir',
-                    'identifier'   => 'Statik Blok ID',
-                    'info'         => 'Kullanıcıları veri toplama ve gizlilik politikası hakkında bilgilendirmek için çerez onay ayarlarını yapılandırın.',
-                    'position'     => 'Çerez Blok Konumu',
-                    'title'        => 'Çerez Bildirim Ayarları',
-                    'top-left'     => 'Üst Sol',
-                    'top-right'    => 'Üst Sağ',
-                ],
-
-                'cookie-consent' => [
-                    'title'                  => 'Çerez Ayarlarını Yönet',
-                    'info'                   => 'Veri kullanımı yönetimi için tercih edilen çerez ayarlarını seçin. Farklı çerez türleri için onay ayarlarını yapılandırın.',
-                    'strictly-necessary'     => 'Kesinlikle Gerekli',
-                    'basic-interaction'      => 'Temel Etkileşim ve İşlevsellik',
-                    'experience-enhancement' => 'Deneyim Geliştirme',
-                    'measurement'            => 'Ölçüm',
-                    'targeting-advertising'  => 'Hedefleme ve Reklam',
                 ],
             ],
 
@@ -4163,13 +4212,103 @@ return [
                     ],
 
                     'social-login' => [
-                        'enable-facebook'   => 'Facebook\'u Etkinleştir',
-                        'enable-github'     => 'Github\'u Etkinleştir',
-                        'enable-google'     => 'Google\'ı Etkinleştir',
-                        'enable-linkedin'   => 'LinkedIn\'i Etkinleştir',
-                        'enable-twitter'    => 'Twitter\'ı Etkinleştir',
-                        'social-login'      => 'Sosyal Giriş',
-                        'social-login-info' => '"Sosyal giriş", kullanıcıların sosyal medya hesaplarını kullanarak web sitelerine erişmelerini sağlar, kayıt ve giriş işlemlerini kolaylık sağlamak için basitleştirir.',
+                        'title' => 'Sosyal Giriş',
+                        'info'  => '"Sosyal giriş", kullanıcıların sosyal medya hesaplarını kullanarak bir web sitesine erişmesini sağlar, kayıt ve giriş işlemlerini basitleştirir.',
+
+                        'google' => [
+                            'enable-google' => 'Google\'ı Etkinleştir',
+
+                            'client-id' => [
+                                'title'      => 'Müşteri ID\'si',
+                                'title-info' => 'Google tarafından OAuth uygulamanızı oluştururken verilen benzersiz kimlik numarası.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Müşteri Gizlisi',
+                                'title-info' => 'Google OAuth müşteri hesabınızla ilişkili gizli anahtar. Gizli tutun.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Yönlendirme URL\'si',
+                                'title-info' => 'Kullanıcılar Google ile kimlik doğrulamasından sonra yönlendirilen geri çağırma URL\'si. Google konsolunuzda yapılandırılan URL ile aynı olmalıdır.',
+                            ],
+                        ],
+
+                        'facebook' => [
+                            'enable-facebook' => 'Facebook\'u Etkinleştir',
+
+                            'client-id' => [
+                                'title'      => 'Müşteri ID\'si',
+                                'title-info' => 'Facebook geliştirici konsolunda bir uygulama oluştururken Facebook tarafından verilen Uygulama ID\'si.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Müşteri Gizlisi',
+                                'title-info' => 'Facebook uygulamanızla ilişkili gizli anahtar. Güvenli ve özel tutun.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Yönlendirme URL\'si',
+                                'title-info' => 'Kullanıcılar Facebook ile kimlik doğrulamasından sonra yönlendirilen geri çağırma URL\'si. Facebook uygulama ayarlarınızda yapılandırılan URL ile aynı olmalıdır.',
+                            ],
+                        ],
+
+                        'github' => [
+                            'enable-github' => 'GitHub\'ı Etkinleştir',
+
+                            'client-id' => [
+                                'title'      => 'Müşteri ID\'si',
+                                'title-info' => 'GitHub tarafından OAuth uygulamanızı oluştururken verilen benzersiz kimlik numarası.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Müşteri Gizlisi',
+                                'title-info' => 'GitHub OAuth müşteri hesabınızla ilişkili gizli anahtar. Gizli tutun.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Yönlendirme URL\'si',
+                                'title-info' => 'Kullanıcılar GitHub ile kimlik doğrulamasından sonra yönlendirilen geri çağırma URL\'si. GitHub konsolunuzda yapılandırılan URL ile aynı olmalıdır.',
+                            ],
+                        ],
+
+                        'linkedin' => [
+                            'enable-linkedin' => 'LinkedIn\'i Etkinleştir',
+
+                            'client-id' => [
+                                'title'      => 'Müşteri ID\'si',
+                                'title-info' => 'LinkedIn tarafından OAuth uygulamanızı oluştururken verilen benzersiz kimlik numarası.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Müşteri Gizlisi',
+                                'title-info' => 'LinkedIn OAuth müşteri hesabınızla ilişkili gizli anahtar. Gizli tutun.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Yönlendirme URL\'si',
+                                'title-info' => 'Kullanıcılar LinkedIn ile kimlik doğrulamasından sonra yönlendirilen geri çağırma URL\'si. LinkedIn konsolunuzda yapılandırılan URL ile aynı olmalıdır.',
+                            ],
+                        ],
+
+                        'twitter' => [
+                            'enable-twitter' => 'Twitter\'ı Etkinleştir',
+
+                            'client-id' => [
+                                'title'      => 'Müşteri ID\'si',
+                                'title-info' => 'Twitter tarafından OAuth uygulamanızı oluştururken verilen benzersiz kimlik numarası.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Müşteri Gizlisi',
+                                'title-info' => 'Twitter OAuth müşteri hesabınızla ilişkili gizli anahtar. Gizli tutun.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Yönlendirme URL\'si',
+                                'title-info' => 'Kullanıcılar Twitter ile kimlik doğrulamasından sonra yönlendirilen geri çağırma URL\'si. Twitter konsolunuzda yapılandırılan URL ile aynı olmalıdır.',
+                            ],
+                        ],
                     ],
                 ],
             ],

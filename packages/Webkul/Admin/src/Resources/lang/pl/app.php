@@ -581,15 +581,20 @@ return [
                 'title' => 'Faktury',
 
                 'datagrid' => [
-                    'action'       => 'Akcje',
-                    'grand-total'  => 'Razem',
-                    'id'           => 'ID',
-                    'invoice-date' => 'Data faktury',
-                    'order-id'     => 'ID zamówienia',
-                    'overdue'      => 'Zaległe',
-                    'paid'         => 'Opłacone',
-                    'pending'      => 'Oczekujące',
-                    'status'       => 'Status',
+                    'action'              => 'Akcje',
+                    'days-left'           => 'Pozostało :count dzień/dni',
+                    'days-overdue'        => ':count dzień/dni opóźnienia',
+                    'grand-total'         => 'Razem',
+                    'id'                  => 'ID',
+                    'invoice-date'        => 'Data faktury',
+                    'mass-update-success' => 'Wybrane faktury zostały pomyślnie zaktualizowane.',
+                    'order-id'            => 'ID zamówienia',
+                    'overdue'             => 'Zaległe',
+                    'overdue-by'          => 'Spóźnione o :count dzień/dni',
+                    'paid'                => 'Opłacone',
+                    'pending'             => 'Oczekujące',
+                    'status'              => 'Status',
+                    'update-status'       => 'Zaktualizuj status',
                 ],
             ],
 
@@ -3366,6 +3371,7 @@ return [
             'cannot-change'      => 'Nie można zmienić użytkownika.',
             'create-success'     => 'Użytkownik został pomyślnie utworzony.',
             'delete-failed'      => 'Usuwanie użytkownika nie powiodło się.',
+            'delete-self-error'  => 'Nie możesz usunąć własnego konta.',
             'delete-success'     => 'Użytkownik został pomyślnie usunięty.',
             'delete-warning'     => 'Czy na pewno chcesz wykonać tę akcję?',
             'incorrect-password' => 'Niepoprawne hasło',
@@ -3729,6 +3735,40 @@ return [
                         'redirection-link'  => 'Link przekierowania',
                     ],
 
+                    'speculation-rules' => [
+                        'enable-speculation' => 'Włącz reguły spekulacji',
+                        'info'               => 'Skonfiguruj ustawienia włączania lub wyłączania automatycznej logiki spekulacji.',
+                        'title'              => 'Reguły spekulacji',
+
+                        'prerender' => [
+                            'conservative'           => 'Konserwatywny',
+                            'eager'                  => 'Chętny',
+                            'eagerness'              => 'Poziom chęci prerenderowania',
+                            'eagerness-info'         => 'Kontroluje, jak agresywnie stosowane są reguły spekulacji. Opcje: chętny (maksymalny), umiarkowany (domyślny), konserwatywny (niski).',
+                            'enabled'                => 'Włącz reguły spekulacji prerender',
+                            'ignore-url-params'      => 'Ignoruj parametry URL prerender',
+                            'ignore-url-params-info' => 'Określ parametry URL do ignorowania w regułach spekulacji. Użyj znaku pipe (|) do oddzielenia wielu parametrów.',
+                            'ignore-urls'            => 'Ignoruj URL prerender',
+                            'ignore-urls-info'       => 'Wprowadź adresy URL do wykluczenia z logiki spekulacji. Oddziel wiele adresów pipe\'em (|).',
+                            'info'                   => 'Ustaw status reguł spekulacji.',
+                            'moderate'               => 'Umiarkowany',
+                        ],
+
+                        'prefetch' => [
+                            'conservative'           => 'Konserwatywny',
+                            'eager'                  => 'Chętny',
+                            'eagerness'              => 'Poziom chęci prefetch',
+                            'eagerness-info'         => 'Kontroluje, jak agresywnie stosowane są reguły spekulacji. Opcje: chętny (maksymalny), umiarkowany (domyślny), konserwatywny (niski).',
+                            'enabled'                => 'Włącz reguły spekulacji prefetch',
+                            'ignore-url-params'      => 'Ignoruj parametry URL prefetch',
+                            'ignore-url-params-info' => 'Określ parametry URL do ignorowania w regułach spekulacji. Użyj znaku pipe (|) do oddzielenia wielu parametrów.',
+                            'ignore-urls'            => 'Ignoruj URL prefetch',
+                            'ignore-urls-info'       => 'Wprowadź adresy URL do wykluczenia z logiki spekulacji. Oddziel wiele adresów pipe\'em (|).',
+                            'info'                   => 'Ustaw status reguł spekulacji.',
+                            'moderate'               => 'Umiarkowany',
+                        ],
+                    ],
+
                     'custom-scripts' => [
                         'custom-css'        => 'Niestandardowy CSS',
                         'custom-javascript' => 'Niestandardowy JavaScript',
@@ -3746,6 +3786,15 @@ return [
                         'logo-image' => 'Obraz logo',
                         'title'      => 'Logo administratora',
                         'title-info' => 'Skonfiguruj obrazy logo i favicon dla front-endu Twojej witryny, aby poprawić rozpoznawalność i branding.',
+                    ],
+
+                    'menu-category' => [
+                        'default'         => 'Domyślne menu',
+                        'info'            => 'To ustawienie kontroluje widoczność kategorii w menu nagłówka. Możesz wybrać wyświetlanie tylko kategorii nadrzędnych lub wszystkich zagnieżdżonych kategorii.',
+                        'preview-default' => 'Podgląd domyślnego menu',
+                        'preview-sidebar' => 'Podgląd menu bocznego',
+                        'sidebar'         => 'Menu boczne',
+                        'title'           => 'Widok kategorii menu',
                     ],
                 ],
 
@@ -3839,6 +3888,49 @@ return [
                     ],
                 ],
 
+                'gdpr' => [
+                    'title' => 'GDPR',
+                    'info'  => 'Ustawienia zgodności z GDPR',
+
+                    'settings' => [
+                        'title'   => 'Ustawienia zgodności z GDPR',
+                        'info'    => 'Zarządzaj ustawieniami zgodności z GDPR, w tym polityką prywatności. Włącz lub wyłącz funkcje GDPR w razie potrzeby.',
+                        'enabled' => 'Włącz GDPR',
+                    ],
+
+                    'agreement' => [
+                        'title'          => 'Zgoda GDPR',
+                        'info'           => 'Zarządzaj zgodą klientów zgodnie z przepisami GDPR. Włącz obowiązkową zgodę na zbieranie i przetwarzanie danych.',
+                        'enable'         => 'Włącz zgodę klienta',
+                        'checkbox-label' => 'Etykieta pola zgody',
+                        'content'        => 'Treść zgody',
+                    ],
+
+                    'cookie' => [
+                        'bottom-left'  => 'Lewy dolny róg',
+                        'bottom-right' => 'Prawy dolny róg',
+                        'center'       => 'Centrum',
+                        'description'  => 'Opis',
+                        'enable'       => 'Włącz powiadomienie o plikach cookie',
+                        'identifier'   => 'ID bloku statycznego',
+                        'info'         => 'Skonfiguruj ustawienia zgody na pliki cookie, aby informować użytkowników o zbieraniu danych i zgodności z polityką prywatności.',
+                        'position'     => 'Pozycja bloku cookie',
+                        'title'        => 'Ustawienia powiadomień o plikach cookie',
+                        'top-left'     => 'Lewy górny róg',
+                        'top-right'    => 'Prawy górny róg',
+                    ],
+
+                    'cookie-consent' => [
+                        'title'                  => 'Zarządzaj ustawieniami plików cookie',
+                        'info'                   => 'Wybierz preferowane ustawienia plików cookie, aby zarządzać wykorzystaniem danych. Skonfiguruj zgody na różne rodzaje plików cookie.',
+                        'strictly-necessary'     => 'Ściśle niezbędne',
+                        'basic-interaction'      => 'Podstawowa interakcja i funkcjonalność',
+                        'experience-enhancement' => 'Poprawa doświadczenia',
+                        'measurement'            => 'Pomiar',
+                        'targeting-advertising'  => 'Targetowanie i reklamy',
+                    ],
+                ],
+
                 'sitemap' => [
                     'info'  => 'Ustaw opcje mapy witryny.',
                     'title' => 'Mapa witryny',
@@ -3855,49 +3947,6 @@ return [
                         'max-url-per-file' => 'Maksymalna liczba URL na plik',
                         'title'            => 'Limity plików',
                     ],
-                ],
-            ],
-
-            'gdpr' => [
-                'title' => 'GDPR',
-                'info'  => 'Ustawienia zgodności z GDPR',
-
-                'settings' => [
-                    'title'   => 'Ustawienia zgodności z GDPR',
-                    'info'    => 'Zarządzaj ustawieniami zgodności z GDPR, w tym polityką prywatności. Włącz lub wyłącz funkcje GDPR w razie potrzeby.',
-                    'enabled' => 'Włącz GDPR',
-                ],
-
-                'agreement' => [
-                    'title'          => 'Zgoda GDPR',
-                    'info'           => 'Zarządzaj zgodą klientów zgodnie z przepisami GDPR. Włącz obowiązkową zgodę na zbieranie i przetwarzanie danych.',
-                    'enable'         => 'Włącz zgodę klienta',
-                    'checkbox-label' => 'Etykieta pola zgody',
-                    'content'        => 'Treść zgody',
-                ],
-
-                'cookie' => [
-                    'bottom-left'  => 'Lewy dolny róg',
-                    'bottom-right' => 'Prawy dolny róg',
-                    'center'       => 'Centrum',
-                    'description'  => 'Opis',
-                    'enable'       => 'Włącz powiadomienie o plikach cookie',
-                    'identifier'   => 'ID bloku statycznego',
-                    'info'         => 'Skonfiguruj ustawienia zgody na pliki cookie, aby informować użytkowników o zbieraniu danych i zgodności z polityką prywatności.',
-                    'position'     => 'Pozycja bloku cookie',
-                    'title'        => 'Ustawienia powiadomień o plikach cookie',
-                    'top-left'     => 'Lewy górny róg',
-                    'top-right'    => 'Prawy górny róg',
-                ],
-
-                'cookie-consent' => [
-                    'title'                  => 'Zarządzaj ustawieniami plików cookie',
-                    'info'                   => 'Wybierz preferowane ustawienia plików cookie, aby zarządzać wykorzystaniem danych. Skonfiguruj zgody na różne rodzaje plików cookie.',
-                    'strictly-necessary'     => 'Ściśle niezbędne',
-                    'basic-interaction'      => 'Podstawowa interakcja i funkcjonalność',
-                    'experience-enhancement' => 'Poprawa doświadczenia',
-                    'measurement'            => 'Pomiar',
-                    'targeting-advertising'  => 'Targetowanie i reklamy',
                 ],
             ],
 
@@ -4163,13 +4212,103 @@ return [
                     ],
 
                     'social-login' => [
-                        'enable-facebook'   => 'Włącz Facebook',
-                        'enable-github'     => 'Włącz GitHub',
-                        'enable-google'     => 'Włącz Google',
-                        'enable-linkedin'   => 'Włącz LinkedIn',
-                        'enable-twitter'    => 'Włącz Twitter',
-                        'social-login'      => 'Logowanie społecznościowe',
-                        'social-login-info' => '"Logowanie społecznościowe" umożliwia użytkownikom dostęp do witryn za pomocą swoich kont w mediach społecznościowych, upraszczając proces rejestracji i logowania dla wygody.',
+                        'title' => 'Logowanie Społecznościowe',
+                        'info'  => '"Logowanie społecznościowe" umożliwia użytkownikom dostęp do witryny za pomocą kont mediów społecznościowych, upraszczając proces rejestracji i logowania.',
+
+                        'google' => [
+                            'enable-google' => 'Włącz Google',
+
+                            'client-id' => [
+                                'title'      => 'ID klienta',
+                                'title-info' => 'Unikalny identyfikator przyznany przez Google podczas tworzenia aplikacji OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Sekret klienta',
+                                'title-info' => 'Tajny klucz powiązany z klientem OAuth Google. Zachowaj go w tajemnicy.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL przekierowania',
+                                'title-info' => 'Adres URL przekierowania, na który użytkownicy są wysyłani po uwierzytelnieniu przez Google. Musi być zgodny z adresem skonfigurowanym w konsoli Google.',
+                            ],
+                        ],
+
+                        'facebook' => [
+                            'enable-facebook' => 'Włącz Facebook',
+
+                            'client-id' => [
+                                'title'      => 'ID klienta',
+                                'title-info' => 'ID aplikacji przyznane przez Facebook podczas tworzenia aplikacji w konsoli deweloperskiej Facebooka.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Sekret klienta',
+                                'title-info' => 'Tajny klucz powiązany z aplikacją Facebook. Zachowaj go w bezpieczeństwie i prywatności.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL przekierowania',
+                                'title-info' => 'Adres URL przekierowania po uwierzytelnieniu przez Facebook. Musi być zgodny z adresem skonfigurowanym w ustawieniach aplikacji Facebook.',
+                            ],
+                        ],
+
+                        'github' => [
+                            'enable-github' => 'Włącz GitHub',
+
+                            'client-id' => [
+                                'title'      => 'ID klienta',
+                                'title-info' => 'Unikalny identyfikator przyznany przez GitHub podczas tworzenia aplikacji OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Sekret klienta',
+                                'title-info' => 'Tajny klucz powiązany z klientem OAuth GitHub. Zachowaj go w tajemnicy.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL przekierowania',
+                                'title-info' => 'Adres URL przekierowania po uwierzytelnieniu przez GitHub. Musi być zgodny z adresem skonfigurowanym w konsoli GitHub.',
+                            ],
+                        ],
+
+                        'linkedin' => [
+                            'enable-linkedin' => 'Włącz LinkedIn',
+
+                            'client-id' => [
+                                'title'      => 'ID klienta',
+                                'title-info' => 'Unikalny identyfikator przyznany przez LinkedIn podczas tworzenia aplikacji OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Sekret klienta',
+                                'title-info' => 'Tajny klucz powiązany z klientem OAuth LinkedIn. Zachowaj go w tajemnicy.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL przekierowania',
+                                'title-info' => 'Adres URL przekierowania po uwierzytelnieniu przez LinkedIn. Musi być zgodny z adresem skonfigurowanym w konsoli LinkedIn.',
+                            ],
+                        ],
+
+                        'twitter' => [
+                            'enable-twitter' => 'Włącz Twitter',
+
+                            'client-id' => [
+                                'title'      => 'ID klienta',
+                                'title-info' => 'Unikalny identyfikator przyznany przez Twitter podczas tworzenia aplikacji OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Sekret klienta',
+                                'title-info' => 'Tajny klucz powiązany z klientem OAuth Twitter. Zachowaj go w tajemnicy.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL przekierowania',
+                                'title-info' => 'Adres URL przekierowania po uwierzytelnieniu przez Twitter. Musi być zgodny z adresem skonfigurowanym w konsoli Twitter.',
+                            ],
+                        ],
                     ],
                 ],
             ],

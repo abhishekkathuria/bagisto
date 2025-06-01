@@ -1,5 +1,6 @@
 import { test, expect } from "../../setup";
 import { loginAsCustomer } from "../../utils/customer";
+import { generateDescription } from "../../utils/faker";
 import {
     enableGDPR,
     enableGDPRAgreement,
@@ -7,7 +8,7 @@ import {
 } from "../../utils/gdpr";
 
 test.describe("customer agreement configuration", () => {
-    test.beforeAll(async ({ adminPage }) => {
+    test.beforeEach(async ({ adminPage }) => {
         await enableGDPR(adminPage);
 
         await enableGDPRAgreement(adminPage);
@@ -33,9 +34,9 @@ test.describe("customer agreement configuration", () => {
         await adminPage.locator('textarea[name="message"]').click();
         await adminPage
             .locator('textarea[name="message"]')
-            .fill("Update my name - Dheeraj Verma");
+            .fill(generateDescription());
         await adminPage.getByRole("button", { name: "Save" }).click();
-        await expect(adminPage.getByRole('paragraph').filter({ hasText: 'Request created successfully' })).toBeVisible();
+        await expect(adminPage.getByRole('paragraph').filter({ hasText: 'Request created successfully' })).toBeVisible({ timeout: 5000 });
         await adminPage.locator(".icon-cancel").first().click();
 
         /**
@@ -186,9 +187,9 @@ test.describe("customer agreement configuration", () => {
         await adminPage.locator('textarea[name="message"]').click();
         await adminPage
             .locator('textarea[name="message"]')
-            .fill("Update my email - dheeraj@example.com");
+            .fill(generateDescription());
         await adminPage.getByRole("button", { name: "Save" }).click();
-        await expect(adminPage.getByRole('paragraph').filter({ hasText: 'Request created successfully' })).toBeVisible();
+        await expect(adminPage.locator('#app')).toContainText('Request created successfully', { timeout: 5000 });
         await adminPage.locator(".icon-cancel").first().click();
 
         /**

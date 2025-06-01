@@ -581,15 +581,20 @@ return [
                 'title' => 'Fatture',
 
                 'datagrid' => [
-                    'action'       => 'Azioni',
-                    'grand-total'  => 'Totale Fattura',
-                    'id'           => 'ID',
-                    'invoice-date' => 'Data Fattura',
-                    'order-id'     => 'ID Ordine',
-                    'overdue'      => 'In Ritardo',
-                    'paid'         => 'Pagato',
-                    'pending'      => 'In Sospeso',
-                    'status'       => 'Stato',
+                    'action'              => 'Azioni',
+                    'days-left'           => 'Mancano :count giorno/i',
+                    'days-overdue'        => ':count giorno/i di ritardo',
+                    'grand-total'         => 'Totale Fattura',
+                    'id'                  => 'ID',
+                    'invoice-date'        => 'Data Fattura',
+                    'mass-update-success' => 'Fatture selezionate aggiornate con successo.',
+                    'order-id'            => 'ID Ordine',
+                    'overdue'             => 'In Ritardo',
+                    'overdue-by'          => 'In ritardo di :count giorno/i',
+                    'paid'                => 'Pagato',
+                    'pending'             => 'In Sospeso',
+                    'status'              => 'Stato',
+                    'update-status'       => 'Aggiorna stato',
                 ],
             ],
 
@@ -3366,6 +3371,7 @@ return [
             'cannot-change'      => 'Impossibile modificare l\'utente',
             'create-success'     => 'Utente creato con successo.',
             'delete-failed'      => 'Eliminazione utente fallita.',
+            'delete-self-error'  => 'Non puoi eliminare il tuo stesso account.',
             'delete-success'     => 'Utente eliminato con successo.',
             'delete-warning'     => 'Sei sicuro di voler eseguire questa azione?',
             'incorrect-password' => 'Password incorretta',
@@ -3729,6 +3735,40 @@ return [
                         'redirection-link'  => 'Link Reindirizzamento',
                     ],
 
+                    'speculation-rules' => [
+                        'enable-speculation' => 'Abilita regole di speculazione',
+                        'info'               => 'Configura le impostazioni per abilitare o disabilitare la logica di speculazione automatica.',
+                        'title'              => 'Regole di speculazione',
+
+                        'prerender' => [
+                            'conservative'           => 'Conservativo',
+                            'eager'                  => 'Fervente',
+                            'eagerness'              => 'Livello di fervore del prerender',
+                            'eagerness-info'         => 'Controlla quanto aggressivamente vengono applicate le regole di speculazione. Opzioni: fervente (massimo), moderato (predefinito), conservativo (basso).',
+                            'enabled'                => 'Abilita regole di speculazione prerender',
+                            'ignore-url-params'      => 'Ignora parametri URL prerender',
+                            'ignore-url-params-info' => 'Specifica i parametri URL da ignorare nelle regole di speculazione. Usa la barra verticale (|) per separare più parametri.',
+                            'ignore-urls'            => 'Ignora URL prerender',
+                            'ignore-urls-info'       => 'Inserisci gli URL da escludere dalla logica di speculazione. Separa più URL con una barra verticale (|).',
+                            'info'                   => 'Imposta lo stato delle regole di speculazione.',
+                            'moderate'               => 'Moderato',
+                        ],
+
+                        'prefetch' => [
+                            'conservative'           => 'Conservativo',
+                            'eager'                  => 'Fervente',
+                            'eagerness'              => 'Livello di fervore del prefetch',
+                            'eagerness-info'         => 'Controlla quanto aggressivamente vengono applicate le regole di speculazione. Opzioni: fervente (massimo), moderato (predefinito), conservativo (basso).',
+                            'enabled'                => 'Abilita regole di speculazione prefetch',
+                            'ignore-url-params'      => 'Ignora parametri URL prefetch',
+                            'ignore-url-params-info' => 'Specifica i parametri URL da ignorare nelle regole di speculazione. Usa la barra verticale (|) per separare più parametri.',
+                            'ignore-urls'            => 'Ignora URL prefetch',
+                            'ignore-urls-info'       => 'Inserisci gli URL da escludere dalla logica di speculazione. Separa più URL con una barra verticale (|).',
+                            'info'                   => 'Imposta lo stato delle regole di speculazione.',
+                            'moderate'               => 'Moderato',
+                        ],
+                    ],
+
                     'custom-scripts' => [
                         'custom-css'        => 'CSS Personalizzato',
                         'custom-javascript' => 'Javascript Personalizzato',
@@ -3746,6 +3786,15 @@ return [
                         'logo-image' => 'Immagine Logo',
                         'title'      => 'Logo Admin',
                         'title-info' => 'Configura le immagini del logo e del favicon per il front-end del tuo sito web per un miglior branding e riconoscimento.',
+                    ],
+
+                    'menu-category' => [
+                        'default'         => 'Menu predefinito',
+                        'info'            => 'Questa impostazione controlla la visibilità delle categorie nel menu intestazione. Puoi scegliere di mostrare solo le categorie principali o tutte le categorie annidate.',
+                        'preview-default' => 'Anteprima menu predefinito',
+                        'preview-sidebar' => 'Anteprima menu laterale',
+                        'sidebar'         => 'Menu laterale',
+                        'title'           => 'Vista categoria menu',
                     ],
                 ],
 
@@ -3839,6 +3888,49 @@ return [
                     ],
                 ],
 
+                'gdpr' => [
+                    'title' => 'GDPR',
+                    'info'  => 'Impostazioni di conformità GDPR',
+
+                    'settings' => [
+                        'title'   => 'Impostazioni di conformità GDPR',
+                        'info'    => 'Gestisci le impostazioni di conformità GDPR, inclusa la politica sulla privacy. Abilita o disabilita le funzionalità GDPR secondo necessità.',
+                        'enabled' => 'Abilita GDPR',
+                    ],
+
+                    'agreement' => [
+                        'title'          => 'Accordo GDPR',
+                        'info'           => 'Gestisci il consenso dei clienti in conformità con i regolamenti GDPR. Abilita il consenso obbligatorio per la raccolta e l\'elaborazione dei dati.',
+                        'enable'         => 'Abilita il consenso del cliente',
+                        'checkbox-label' => 'Etichetta della casella di controllo per il consenso',
+                        'content'        => 'Contenuto del consenso',
+                    ],
+
+                    'cookie' => [
+                        'bottom-left'  => 'In basso a sinistra',
+                        'bottom-right' => 'In basso a destra',
+                        'center'       => 'Centro',
+                        'description'  => 'Descrizione',
+                        'enable'       => 'Abilita notifica sui cookie',
+                        'identifier'   => 'Identificatore del blocco statico',
+                        'info'         => 'Imposta le impostazioni di consenso sui cookie per informare gli utenti sulla raccolta dei dati e rispettare la politica sulla privacy.',
+                        'position'     => 'Posizione di visualizzazione del blocco dei cookie',
+                        'title'        => 'Impostazioni di notifica sui cookie',
+                        'top-left'     => 'In alto a sinistra',
+                        'top-right'    => 'In alto a destra',
+                    ],
+
+                    'cookie-consent' => [
+                        'title'                  => 'Gestisci le tue impostazioni sui cookie',
+                        'info'                   => 'Controlla l\'uso dei dati selezionando le impostazioni dei cookie desiderate. Imposta le autorizzazioni per diversi tipi di cookie.',
+                        'strictly-necessary'     => 'Strettamente necessari',
+                        'basic-interaction'      => 'Interazione e funzionalità di base',
+                        'experience-enhancement' => 'Miglioramento dell\'esperienza',
+                        'measurement'            => 'Misurazione',
+                        'targeting-advertising'  => 'Targeting e pubblicità',
+                    ],
+                ],
+
                 'sitemap' => [
                     'info'  => 'Impostare le opzioni della mappa del sito.',
                     'title' => 'Mappa del Sito',
@@ -3855,49 +3947,6 @@ return [
                         'max-url-per-file' => 'Numero massimo di URL per file',
                         'title'            => 'Limiti dei File',
                     ],
-                ],
-            ],
-
-            'gdpr' => [
-                'title' => 'GDPR',
-                'info'  => 'Impostazioni di conformità GDPR',
-
-                'settings' => [
-                    'title'   => 'Impostazioni di conformità GDPR',
-                    'info'    => 'Gestisci le impostazioni di conformità GDPR, inclusa la politica sulla privacy. Abilita o disabilita le funzionalità GDPR secondo necessità.',
-                    'enabled' => 'Abilita GDPR',
-                ],
-
-                'agreement' => [
-                    'title'          => 'Accordo GDPR',
-                    'info'           => 'Gestisci il consenso dei clienti in conformità con i regolamenti GDPR. Abilita il consenso obbligatorio per la raccolta e l\'elaborazione dei dati.',
-                    'enable'         => 'Abilita il consenso del cliente',
-                    'checkbox-label' => 'Etichetta della casella di controllo per il consenso',
-                    'content'        => 'Contenuto del consenso',
-                ],
-
-                'cookie' => [
-                    'bottom-left'  => 'In basso a sinistra',
-                    'bottom-right' => 'In basso a destra',
-                    'center'       => 'Centro',
-                    'description'  => 'Descrizione',
-                    'enable'       => 'Abilita notifica sui cookie',
-                    'identifier'   => 'Identificatore del blocco statico',
-                    'info'         => 'Imposta le impostazioni di consenso sui cookie per informare gli utenti sulla raccolta dei dati e rispettare la politica sulla privacy.',
-                    'position'     => 'Posizione di visualizzazione del blocco dei cookie',
-                    'title'        => 'Impostazioni di notifica sui cookie',
-                    'top-left'     => 'In alto a sinistra',
-                    'top-right'    => 'In alto a destra',
-                ],
-
-                'cookie-consent' => [
-                    'title'                  => 'Gestisci le tue impostazioni sui cookie',
-                    'info'                   => 'Controlla l\'uso dei dati selezionando le impostazioni dei cookie desiderate. Imposta le autorizzazioni per diversi tipi di cookie.',
-                    'strictly-necessary'     => 'Strettamente necessari',
-                    'basic-interaction'      => 'Interazione e funzionalità di base',
-                    'experience-enhancement' => 'Miglioramento dell\'esperienza',
-                    'measurement'            => 'Misurazione',
-                    'targeting-advertising'  => 'Targeting e pubblicità',
                 ],
             ],
 
@@ -4163,13 +4212,103 @@ return [
                     ],
 
                     'social-login' => [
-                        'enable-facebook'   => 'Abilita Facebook',
-                        'enable-github'     => 'Abilita Github',
-                        'enable-google'     => 'Abilita Google',
-                        'enable-linkedin'   => 'Abilita LinkedIn',
-                        'enable-twitter'    => 'Abilita Twitter',
-                        'social-login'      => 'Accesso tramite social network',
-                        'social-login-info' => '"Accesso tramite social network" consente agli utenti di accedere ai siti web utilizzando i loro account dei social media, semplificando i processi di registrazione e accesso per comodità.',
+                        'title' => 'Accesso Social',
+                        'info'  => '"Accesso social" consente agli utenti di accedere a un sito web utilizzando i propri account social, semplificando i processi di registrazione e accesso.',
+
+                        'google' => [
+                            'enable-google' => 'Abilita Google',
+
+                            'client-id' => [
+                                'title'      => 'ID Client',
+                                'title-info' => 'Identificatore univoco fornito da Google durante la creazione dell’applicazione OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Chiave segreta associata al tuo client OAuth di Google. Mantienila riservata.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL di reindirizzamento',
+                                'title-info' => 'URL di callback a cui gli utenti vengono reindirizzati dopo l’autenticazione con Google. Deve corrispondere all’URL configurato nella tua console Google.',
+                            ],
+                        ],
+
+                        'facebook' => [
+                            'enable-facebook' => 'Abilita Facebook',
+
+                            'client-id' => [
+                                'title'      => 'ID Client',
+                                'title-info' => 'ID app fornito da Facebook durante la creazione di un’app nella console per sviluppatori di Facebook.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Chiave segreta associata alla tua applicazione Facebook. Mantienila sicura e privata.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL di reindirizzamento',
+                                'title-info' => 'URL di callback a cui gli utenti vengono reindirizzati dopo l’autenticazione con Facebook. Deve corrispondere all’URL configurato nelle impostazioni della tua app Facebook.',
+                            ],
+                        ],
+
+                        'github' => [
+                            'enable-github' => 'Abilita GitHub',
+
+                            'client-id' => [
+                                'title'      => 'ID Client',
+                                'title-info' => 'Identificatore univoco fornito da GitHub durante la creazione dell’applicazione OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Chiave segreta associata al tuo client OAuth di GitHub. Mantienila riservata.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL di reindirizzamento',
+                                'title-info' => 'URL di callback a cui gli utenti vengono reindirizzati dopo l’autenticazione con GitHub. Deve corrispondere all’URL configurato nella tua console GitHub.',
+                            ],
+                        ],
+
+                        'linkedin' => [
+                            'enable-linkedin' => 'Abilita LinkedIn',
+
+                            'client-id' => [
+                                'title'      => 'ID Client',
+                                'title-info' => 'Identificatore univoco fornito da LinkedIn durante la creazione dell’applicazione OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Chiave segreta associata al tuo client OAuth di LinkedIn. Mantienila riservata.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL di reindirizzamento',
+                                'title-info' => 'URL di callback a cui gli utenti vengono reindirizzati dopo l’autenticazione con LinkedIn. Deve corrispondere all’URL configurato nella tua console LinkedIn.',
+                            ],
+                        ],
+
+                        'twitter' => [
+                            'enable-twitter' => 'Abilita Twitter',
+
+                            'client-id' => [
+                                'title'      => 'ID Client',
+                                'title-info' => 'Identificatore univoco fornito da Twitter durante la creazione dell’applicazione OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Chiave segreta associata al tuo client OAuth di Twitter. Mantienila riservata.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'URL di reindirizzamento',
+                                'title-info' => 'URL di callback a cui gli utenti vengono reindirizzati dopo l’autenticazione con Twitter. Deve corrispondere all’URL configurato nella tua console Twitter.',
+                            ],
+                        ],
                     ],
                 ],
             ],
