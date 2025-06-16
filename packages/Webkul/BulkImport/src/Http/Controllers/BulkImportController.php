@@ -57,15 +57,15 @@ class BulkImportController extends Controller
 
             // Find product by SKU
             $product = Product::where('sku', $sku)->first();
-            
+
             if ($product) {
-                $folder = 'product/' . $product->id;
+                $folder = 'product/'.$product->id;
                 $image->storeAs($folder, $originalName);
 
                 ProductImage::create([
                     'product_id' => $product->id,
-                    'path' => $folder . '/' . $originalName,
-                    'type' => 'images',
+                    'path'       => $folder.'/'.$originalName,
+                    'type'       => 'images',
                 ]);
             } else {
                 // Log missing SKU or return a message if needed

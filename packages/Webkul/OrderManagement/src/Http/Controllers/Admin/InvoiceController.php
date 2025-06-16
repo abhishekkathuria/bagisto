@@ -4,9 +4,9 @@ namespace Webkul\OrderManagement\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Sales\Repositories\OrderRepository;
 use Webkul\Sales\Repositories\InvoiceRepository;
 use Webkul\Sales\Repositories\OrderItemRepository;
+use Webkul\Sales\Repositories\OrderRepository;
 
 class InvoiceController extends Controller
 {
@@ -43,7 +43,7 @@ class InvoiceController extends Controller
         }
 
         $order = $invoice->order;
-        
+
         $invoice->delete();
 
         foreach ($order->items as $orderItem) {

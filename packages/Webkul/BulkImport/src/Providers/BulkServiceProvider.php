@@ -21,10 +21,10 @@ class BulkServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'bulk_import');
+        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'bulk_import');
 
         $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'bulk_import');
-        
+
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'bulk_import');
 
         Route::middleware(['web', PreventRequestsDuringMaintenance::class])->group(__DIR__.'/../Routes/web.php');

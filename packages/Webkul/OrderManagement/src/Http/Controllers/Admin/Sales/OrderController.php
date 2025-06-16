@@ -2,15 +2,15 @@
 
 namespace Webkul\OrderManagement\Http\Controllers\Admin\Sales;
 
-use Illuminate\Http\Response;
-use Webkul\Checkout\Facades\Cart;
-use Webkul\Sales\Transformers\OrderResource;
-use Webkul\Sales\Repositories\OrderRepository;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Webkul\Checkout\Repositories\CartRepository;
-use Webkul\Sales\Repositories\OrderCommentRepository;
-use Webkul\Customer\Repositories\CustomerGroupRepository;
+use Illuminate\Http\Response;
 use Webkul\Admin\Http\Controllers\Sales\OrderController as BaseOrderController;
+use Webkul\Checkout\Facades\Cart;
+use Webkul\Checkout\Repositories\CartRepository;
+use Webkul\Customer\Repositories\CustomerGroupRepository;
+use Webkul\Sales\Repositories\OrderCommentRepository;
+use Webkul\Sales\Repositories\OrderRepository;
+use Webkul\Sales\Transformers\OrderResource;
 
 class OrderController extends BaseOrderController
 {

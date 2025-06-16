@@ -2,6 +2,7 @@
 
 namespace Webkul\BulkImport\Jobs;
 
+use Illuminate\Bus\Batchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\DB;
@@ -9,15 +10,15 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Webkul\Product\Models\ProductImage;
-use Illuminate\Bus\Batchable;
 use Webkul\Attribute\Models\Attribute;
+use Webkul\Product\Models\ProductImage;
 
 class FileImport implements ShouldQueue
 {
-    use Queueable, Batchable;
+    use Batchable, Queueable;
 
     protected $chunk;
+
     protected $locale;
 
     private const CATEGORYNAMEMAP = [
@@ -26,101 +27,101 @@ class FileImport implements ShouldQueue
     ];
 
     private const CATEGORY_DAMES = [
-        "DAMES" => "DAMESSCHOENEN",
-        "SNEAKER" => "Sneakers",
-        "SLIPPER" => "Slippers",
-        "SANDAAL" => "Sandalen",
-        "PUMP" => "Pumps",
-        "MOCASSIN" => "Mocassins",
-        "MUIL" => "Muiltjes",
-        "MOLIERE" => "Veterschoenen",
-        "BALLERINA" => "Ballerinas",
-        "BOTTINE" => "Bottines",
-        "PANTOFFEL" => "Pantoffels",
-        "LAARS" => "Laarzen",
-        "ENKELLAARS" => "Enkellaarzen",
-        "ESPADRILLES" => "ESPADRILLES",
-        "OPEN" => "Open",
-        "CASUAL" => "Casual",
-        "GESLOTEN" => "Gesloten",
-        "LAGE SCHOEN" => "Lage schoen",
+        'DAMES'       => 'DAMESSCHOENEN',
+        'SNEAKER'     => 'Sneakers',
+        'SLIPPER'     => 'Slippers',
+        'SANDAAL'     => 'Sandalen',
+        'PUMP'        => 'Pumps',
+        'MOCASSIN'    => 'Mocassins',
+        'MUIL'        => 'Muiltjes',
+        'MOLIERE'     => 'Veterschoenen',
+        'BALLERINA'   => 'Ballerinas',
+        'BOTTINE'     => 'Bottines',
+        'PANTOFFEL'   => 'Pantoffels',
+        'LAARS'       => 'Laarzen',
+        'ENKELLAARS'  => 'Enkellaarzen',
+        'ESPADRILLES' => 'ESPADRILLES',
+        'OPEN'        => 'Open',
+        'CASUAL'      => 'Casual',
+        'GESLOTEN'    => 'Gesloten',
+        'LAGE SCHOEN' => 'Lage schoen',
     ];
 
     private const CATEGORY_HEREN = [
-        "HEREN" => "HERENSCHOENEN",
-        "BOTTINE" => "Bottines",
-        "CASUAL" => "Casual",
-        "ENKELLAARS" => "Hoge schoenen",
-        "MOCASSIN" => "Loafers",
-        "MOLIERE" => "Moliere",
-        "PANTOFFEL" => "Pantoffels",
-        "SANDAAL" => "Sandalen",
-        "SLIPPER" => "Slippers",
-        "SNEAKER" => "Sneakers",
+        'HEREN'      => 'HERENSCHOENEN',
+        'BOTTINE'    => 'Bottines',
+        'CASUAL'     => 'Casual',
+        'ENKELLAARS' => 'Hoge schoenen',
+        'MOCASSIN'   => 'Loafers',
+        'MOLIERE'    => 'Moliere',
+        'PANTOFFEL'  => 'Pantoffels',
+        'SANDAAL'    => 'Sandalen',
+        'SLIPPER'    => 'Slippers',
+        'SNEAKER'    => 'Sneakers',
     ];
 
     private const CATEGORY_ACCESSORIES = [
-        "HANDTAS" =>  "Handtassen",
-        "ONDERHOUDSPRODUKTEN" => "Onderhoudsproducten",
-        "PANTY" =>  "Panty",
-        "RIEM" =>  "Riem",
-        "SOKKEN" =>  "Sokken",
-        "ZOLEN" =>  "Zolen",
-        "SJAALS" =>  "Sjaals",
+        'HANDTAS'             => 'Handtassen',
+        'ONDERHOUDSPRODUKTEN' => 'Onderhoudsproducten',
+        'PANTY'               => 'Panty',
+        'RIEM'                => 'Riem',
+        'SOKKEN'              => 'Sokken',
+        'ZOLEN'               => 'Zolen',
+        'SJAALS'              => 'Sjaals',
     ];
 
     private const COLORMAP = [
-        'ANDERE'        => "#1111c2",
-        'AZZURO'        => "#1111c2",
-        'BEIGE'         => "#f5f5dc",
-        'BLAUW'         => "#1111c2",
-        'BLAUW - J'     => "#1111c2",
-        'BLAUW-JEA'     => "#1111c2",
-        'BLW-JEANS'     => "#1111c2",
-        'BORDEAUX'      => "#45150D",
-        'BRONS'         => "#c94c48",
-        'BRUIN'         => "#79553d",
-        'CAMEL'         => "#79553d",
-        'CIELO'         => "#1111c2",
-        'COGNAC'        => "#79553d",
-        'CUOIO'         => "#79553d",
-        'D-Pump GIULIA' => "#ff0000",
-        'FANGO'         => "#c0c0c0",
-        'FUXIA'         => "#f400a1",
-        'GEEL'          => "#ffff00",
-        'GHIACCIO'      => "#ffffff",
-        'GOUD'          => "#d4af37",
-        'GRIJS'         => "#808080",
-        'GROEN'         => "#008000",
-        'KAKI'          => "#008000",
-        'KAKKI'         => "#008000",
-        'MULTICOLOR'    => "#ffffff",
-        'NATUREL'       => "#79553d",
-        'PINK'          => "#f3c4cf",
-        'ORANJE'        => "#ffa500",
-        'PAARS'         => "#800080",
-        'PEARL'         => "#800080",
-        'ROEST'         => "#79553d",
-        'ROOD'          => "#ff0000",
-        'ROSE'          => "#f3c4cf",
-        'TABACCO'       => "#79553d",
-        'TAUPE'         => "#d3c3b0",
-        'TEINT'         => "#c0c0c0",
-        'TERRACOTT'     => "#79553d",
-        'WIT'           => "#ffffff",
-        'ZILVER'        => "#d0d2d1",
-        'ZWART'         => "#0b0013",
-        'ZWART+WIT'     => "#0b0013",
-        'ZWART-WIT'     => "#0b0013",
-        'MARRON'        => "#800000",
-        'BLAUW-JEANS'   => "#5DADEC",
-        'VIOLA'         => "#7f678e",
-        'GUN-METALLIC'  => "#818589",
-        'MINT'          => "#3EB489",
-        'WIT-ZWART'     => "#0b0013",
-        'MAUVE'         => "#E0B0FF",
-        'WIT-BLAUW'     => "#800080",
-        'WIT GOUD'      => "#79553d"
+        'ANDERE'        => '#1111c2',
+        'AZZURO'        => '#1111c2',
+        'BEIGE'         => '#f5f5dc',
+        'BLAUW'         => '#1111c2',
+        'BLAUW - J'     => '#1111c2',
+        'BLAUW-JEA'     => '#1111c2',
+        'BLW-JEANS'     => '#1111c2',
+        'BORDEAUX'      => '#45150D',
+        'BRONS'         => '#c94c48',
+        'BRUIN'         => '#79553d',
+        'CAMEL'         => '#79553d',
+        'CIELO'         => '#1111c2',
+        'COGNAC'        => '#79553d',
+        'CUOIO'         => '#79553d',
+        'D-Pump GIULIA' => '#ff0000',
+        'FANGO'         => '#c0c0c0',
+        'FUXIA'         => '#f400a1',
+        'GEEL'          => '#ffff00',
+        'GHIACCIO'      => '#ffffff',
+        'GOUD'          => '#d4af37',
+        'GRIJS'         => '#808080',
+        'GROEN'         => '#008000',
+        'KAKI'          => '#008000',
+        'KAKKI'         => '#008000',
+        'MULTICOLOR'    => '#ffffff',
+        'NATUREL'       => '#79553d',
+        'PINK'          => '#f3c4cf',
+        'ORANJE'        => '#ffa500',
+        'PAARS'         => '#800080',
+        'PEARL'         => '#800080',
+        'ROEST'         => '#79553d',
+        'ROOD'          => '#ff0000',
+        'ROSE'          => '#f3c4cf',
+        'TABACCO'       => '#79553d',
+        'TAUPE'         => '#d3c3b0',
+        'TEINT'         => '#c0c0c0',
+        'TERRACOTT'     => '#79553d',
+        'WIT'           => '#ffffff',
+        'ZILVER'        => '#d0d2d1',
+        'ZWART'         => '#0b0013',
+        'ZWART+WIT'     => '#0b0013',
+        'ZWART-WIT'     => '#0b0013',
+        'MARRON'        => '#800000',
+        'BLAUW-JEANS'   => '#5DADEC',
+        'VIOLA'         => '#7f678e',
+        'GUN-METALLIC'  => '#818589',
+        'MINT'          => '#3EB489',
+        'WIT-ZWART'     => '#0b0013',
+        'MAUVE'         => '#E0B0FF',
+        'WIT-BLAUW'     => '#800080',
+        'WIT GOUD'      => '#79553d',
     ];
 
     /**
@@ -134,8 +135,6 @@ class FileImport implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle(): void
     {
@@ -157,7 +156,9 @@ class FileImport implements ShouldQueue
             $special_price = $record[9];
             $season = explode('.', $record[1])[0];
 
-            if ($key == 0 || !$name || !$categoryName || !$price || (substr_count($categoryName, '-') === 2)) continue;
+            if ($key == 0 || ! $name || ! $categoryName || ! $price || (substr_count($categoryName, '-') === 2)) {
+                continue;
+            }
 
             $categories = $this->createCategoryAndSubCategory($categoryName);
 
@@ -183,11 +184,11 @@ class FileImport implements ShouldQueue
 
             if ($maincategoryName == 'DAMESSCHOENEN') {
                 $subName = self::CATEGORY_DAMES[$subName];
-            } else if ($maincategoryName == 'HERENSCHOENEN') {
+            } elseif ($maincategoryName == 'HERENSCHOENEN') {
                 $subName = self::CATEGORY_HEREN[$subName];
             }
 
-            $categoryName = $maincategoryName . '-' . $subName;
+            $categoryName = $maincategoryName.'-'.$subName;
         } else {
             $subName = self::CATEGORY_ACCESSORIES[$categoryName] ?? $categoryName;
         }
@@ -198,35 +199,35 @@ class FileImport implements ShouldQueue
         } else {
             $categoryExist = $categoryTranslation->where('name', 'ACCESSOIRES')->first();
 
-            if (!$categoryExist) {
+            if (! $categoryExist) {
                 $categoryExist = $categoryRepo->create([
-                    'locale' => 'all',
-                    'name' => 'ACCESSOIRES',
-                    'description' => 'ACCESSOIRES',
-                    'slug' => Str::slug('ACCESSOIRES'),
-                    'status' => 1,
-                    'position' => 1,
+                    'locale'       => 'all',
+                    'name'         => 'ACCESSOIRES',
+                    'description'  => 'ACCESSOIRES',
+                    'slug'         => Str::slug('ACCESSOIRES'),
+                    'status'       => 1,
+                    'position'     => 1,
                     'display_mode' => 'products_and_description',
-                    'parent_id' => 1,
-                    'attributes' => [11, 23, 24, 25]
+                    'parent_id'    => 1,
+                    'attributes'   => [11, 23, 24, 25],
                 ]);
             }
         }
 
-        if (!$categoryExist) {
+        if (! $categoryExist) {
             if (Str::contains($categoryName, '-')) {
                 [$mainNameCategory, $subNameCategory] = explode('-', $categoryName, 2);
 
                 $categoryExist = $categoryRepo->create([
-                    'locale' => 'all',
-                    'name' => $mainNameCategory,
-                    'description' => $mainNameCategory,
-                    'slug' => Str::slug($mainNameCategory),
-                    'status' => 0,
-                    'position' => 1,
+                    'locale'       => 'all',
+                    'name'         => $mainNameCategory,
+                    'description'  => $mainNameCategory,
+                    'slug'         => Str::slug($mainNameCategory),
+                    'status'       => 0,
+                    'position'     => 1,
                     'display_mode' => 'products_and_description',
-                    'parent_id' => 1,
-                    'attributes' => [11, 23, 24, 25]
+                    'parent_id'    => 1,
+                    'attributes'   => [11, 23, 24, 25],
                 ]);
             }
         }
@@ -237,22 +238,23 @@ class FileImport implements ShouldQueue
                     $query->where('name', $subName);
                 })->first();
 
-            if (!$subCategoryExist && $subName) {
+            if (! $subCategoryExist && $subName) {
                 $subCategoryExist = $categoryRepo->create([
-                    'locale' => 'all',
-                    'name' => $subName,
-                    'description' => $subName,
-                    'slug' => Str::slug($subName),
-                    'status' => 0,
-                    'position' => 1,
+                    'locale'       => 'all',
+                    'name'         => $subName,
+                    'description'  => $subName,
+                    'slug'         => Str::slug($subName),
+                    'status'       => 0,
+                    'position'     => 1,
                     'display_mode' => 'products_and_description',
-                    'parent_id' => $categoryExist->category_id ?? $categoryExist->id,
-                    'attributes' => [11, 23, 24, 25]
+                    'parent_id'    => $categoryExist->category_id ?? $categoryExist->id,
+                    'attributes'   => [11, 23, 24, 25],
                 ]);
 
                 Event::dispatch('catalog.category.create.after', $subCategoryExist);
             }
         }
+
         return [$categoryExist->category_id, $subCategoryExist->id];
         // Category Part Done here
     }
@@ -279,10 +281,10 @@ class FileImport implements ShouldQueue
             ?: $attributeOptionRepository->create(['attribute_id' => $seasonAttribute->id, 'admin_name' => $season]);
 
         return [
-            'color' => $colorRow->id,
-            'size' => $sizeRow->id,
-            'brand' => $brandRow->id,
-            'season' => $seasonRow->id
+            'color'  => $colorRow->id,
+            'size'   => $sizeRow->id,
+            'brand'  => $brandRow->id,
+            'season' => $seasonRow->id,
         ];
         // Attribute Part Done here
 
@@ -298,26 +300,26 @@ class FileImport implements ShouldQueue
         $isProductAlreadyCreated = true;
 
         $productArr = [
-            "channel" => "default",
-            "locale" => $this->locale,
+            'channel' => 'default',
+            'locale'  => $this->locale,
             // "sku" => $name,
-            "name" => $name,
-            "url_key" => Str::slug($name),
-            "color" => $attribute['color'],
-            "size" => $attribute['size'],
-            "allow_backorder" => 1,
-            "short_description" => $description,
-            "description" => $description,
-            "season" => $attribute['season'],
-            "new" => 1,
-            "featured" => 1,
-            "visible_individually" => 1,
-            "status" => 1,
-            "weight" => 0,
-            "guest_checkout" => 1,
-            "channels" => [1],
-            "categories" => $categories,
-            "brand" => $attribute['brand'],
+            'name'                 => $name,
+            'url_key'              => Str::slug($name),
+            'color'                => $attribute['color'],
+            'size'                 => $attribute['size'],
+            'allow_backorder'      => 1,
+            'short_description'    => $description,
+            'description'          => $description,
+            'season'               => $attribute['season'],
+            'new'                  => 1,
+            'featured'             => 1,
+            'visible_individually' => 1,
+            'status'               => 1,
+            'weight'               => 0,
+            'guest_checkout'       => 1,
+            'channels'             => [1],
+            'categories'           => $categories,
+            'brand'                => $attribute['brand'],
         ];
 
         $addImages = false;
@@ -326,8 +328,8 @@ class FileImport implements ShouldQueue
             $isProductAlreadyCreated = false;
 
             $productExist = $productRepository->create([
-                'sku' => $name,
-                'type' => 'configurable',
+                'sku'                 => $name,
+                'type'                => 'configurable',
                 'attribute_family_id' => 1,
             ]);
         }
@@ -335,8 +337,8 @@ class FileImport implements ShouldQueue
         $addImages = true;
 
         array_merge($productArr, [
-            'sku'       => $name . '-' . $key,
-            'url_key'   => Str::slug($name) . '-' . $key,
+            'sku'       => $name.'-'.$key,
+            'url_key'   => Str::slug($name).'-'.$key,
             'parent_id' => $productExist->id,
         ]);
 
@@ -363,15 +365,15 @@ class FileImport implements ShouldQueue
             }
         }
 
-        $sku = $name . "-variant-" . $attribute['size'] . "-" . $attribute['color'];
+        $sku = $name.'-variant-'.$attribute['size'].'-'.$attribute['color'];
         $productExistWithSku = $productRepository->findOneWhere(['sku' => $sku]);
 
         if (! $productExistWithSku) {
             $productExistWithSku = $productRepository->create([
-                'sku' => $sku,
-                'type' => 'simple',
+                'sku'                 => $sku,
+                'type'                => 'simple',
                 'attribute_family_id' => 1,
-                'parent_id' => $productExist->id,
+                'parent_id'           => $productExist->id,
             ]);
         }
 
@@ -395,20 +397,20 @@ class FileImport implements ShouldQueue
 
     public function assignImages($productExist, $name, $images)
     {
-        $skuPrefix = $name . '-';
+        $skuPrefix = $name.'-';
         // Product Images Part done here
         foreach ($images as $image) {
             if (str_starts_with($image->getFilename(), $skuPrefix)) {
-                $destinationPath = 'product/' . $productExist->id . '/';
+                $destinationPath = 'product/'.$productExist->id.'/';
 
                 // Make sure the destination folder exists
                 Storage::makeDirectory($destinationPath);
                 // Copy the image to the destination folder
-                Storage::put($destinationPath . $image->getFilename(), File::get($image->getPathname()));
+                Storage::put($destinationPath.$image->getFilename(), File::get($image->getPathname()));
                 ProductImage::create([
                     'product_id' => $productExist->id,
-                    'path' => $destinationPath . $image->getFilename(),
-                    'type' => 'images',
+                    'path'       => $destinationPath.$image->getFilename(),
+                    'type'       => 'images',
                 ]);
             }
         }

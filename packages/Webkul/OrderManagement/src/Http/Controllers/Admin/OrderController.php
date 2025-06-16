@@ -2,18 +2,17 @@
 
 namespace Webkul\OrderManagement\Http\Controllers\Admin;
 
-use Illuminate\Http\JsonResponse;
-use Webkul\Checkout\Facades\Cart;
 use Illuminate\Support\Facades\Event;
-use Webkul\Sales\Transformers\OrderResource;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Sales\Repositories\OrderRepository;
-use Webkul\Checkout\Repositories\CartRepository;
-use Webkul\Sales\Repositories\InvoiceRepository;
-use Webkul\Sales\Transformers\OrderItemResource;
-use Webkul\Product\Repositories\ProductRepository;
-use Webkul\Sales\Repositories\OrderItemRepository;
+use Webkul\Checkout\Facades\Cart;
 use Webkul\Checkout\Repositories\CartItemRepository;
+use Webkul\Checkout\Repositories\CartRepository;
+use Webkul\Product\Repositories\ProductRepository;
+use Webkul\Sales\Repositories\InvoiceRepository;
+use Webkul\Sales\Repositories\OrderItemRepository;
+use Webkul\Sales\Repositories\OrderRepository;
+use Webkul\Sales\Transformers\OrderItemResource;
+use Webkul\Sales\Transformers\OrderResource;
 
 class OrderController extends Controller
 {
@@ -39,7 +38,7 @@ class OrderController extends Controller
     public function edit(int $id)
     {
         $order = $this->orderRepository->with('items')->findOrFail($id);
-        
+
         return view('order_management::admin.sales.orders.edit', compact('order'));
     }
 
@@ -49,17 +48,17 @@ class OrderController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(int $id)
-    {        
+    {
         $order = $this->orderRepository->findOrFail($id);
-        
+
         $orderItems = request()->input('order_items');
-        
+
         $newItems = request()->input('new_items');
-        
+
         $cart = $this->cartRepository->findOrFail($order->cart_id);
 
         Cart::setCart($cart);
-        
+
         foreach ($newItems as $item) {
             if (
                 isset($item['isRemoved'])
@@ -69,50 +68,50 @@ class OrderController extends Controller
             }
 
             $product = $this->productRepository->findOrFail($item['id']);
-            
+
             $data = [
-                'quantity' => $item['qty'],
+                'quantity'   => $item['qty'],
                 'product_id' => $item['id'],
             ];
-            
+
             $cart = Cart::addProduct($product, $data);
         }
-        
+
         foreach ($order->items as $item) {
             $cartItem = $cart->items->where('product_id', $item->product_id)->first();
-            
+
             if (
                 isset($orderItems[$item->id])
                 && $orderItems[$item->id]['isUpdated']
             ) {
                 if (! $orderItems[$item->id]['isRemoved']) {
-                    $data["qty"][$cartItem->id] = $orderItems[$item->id]['qty'];
-                    
+                    $data['qty'][$cartItem->id] = $orderItems[$item->id]['qty'];
+
                     Cart::updateItems($data);
                 } else {
                     $this->orderItemRepository->delete($item->id);
 
                     $this->cartItemRepository->delete($cartItem->id);
                 }
-            }                 
+            }
         }
-        
+
         Cart::collectTotals();
 
         Cart::refreshCart();
 
         $cart = Cart::getCart();
-        
+
         $orderData = (new OrderResource($cart))->jsonSerialize();
-        
+
         $order->update($orderData);
 
         $order->refresh();
 
         $this->orderRepository->collectTotals($order);
-        
+
         $orderItemData = OrderItemResource::collection($cart->items)->jsonSerialize();
-        
+
         foreach ($orderItemData as $item) {
             $orderItem = $order->items->where('product_id', $item['product_id'])->first();
 
@@ -139,7 +138,7 @@ class OrderController extends Controller
 
         return response()->json([
             'redirect_url' => route('admin.sales.orders.view', $order->id),
-            'message' => __('order_management::app.admin.sales.orders.edit.update-success'),
+            'message'      => __('order_management::app.admin.sales.orders.edit.update-success'),
         ]);
     }
 
@@ -152,17 +151,17 @@ class OrderController extends Controller
     protected function createOrCancelInvoice($order)
     {
         $invoices = $order->invoices;
-        
+
         foreach ($invoices as $invoice) {
             $invoice->delete();
         }
-        
+
         foreach ($order->items as $orderItem) {
             $this->orderItemRepository->collectTotals($orderItem);
         }
 
         $this->orderRepository->collectTotals($order);
-        
+
         if ($order->canInvoice()) {
             $this->invoiceRepository->create($this->prepareInvoiceData($order));
         }

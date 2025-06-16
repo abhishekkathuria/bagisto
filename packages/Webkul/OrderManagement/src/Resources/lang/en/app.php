@@ -5,18 +5,18 @@ return [
         'sales' => [
             'orders' => [
                 'view' => [
-                    'cancel-invoice' => 'Cancel Invoice',
+                    'cancel-invoice'         => 'Cancel Invoice',
                     'confirm-cancel-invoice' => 'Are you sure you want to cancel this invoice?',
-                    'edit' => 'Edit',
+                    'edit'                   => 'Edit',
                 ],
 
                 'edit' => [
-                    'edit' => 'Edit',
-                    'title' => 'Edit Order',
-                    'update-btn' => 'Update',
-                    'update-qty' => 'Update Quantity',
-                    'remove-item' => 'Remove Item',
-                    'update' => 'Update',
+                    'edit'           => 'Edit',
+                    'title'          => 'Edit Order',
+                    'update-btn'     => 'Update',
+                    'update-qty'     => 'Update Quantity',
+                    'remove-item'    => 'Remove Item',
+                    'update'         => 'Update',
                     'update-success' => 'Order updated successfully.',
 
                     'search' => [

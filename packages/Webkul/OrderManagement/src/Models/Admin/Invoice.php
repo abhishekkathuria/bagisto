@@ -2,8 +2,8 @@
 
 namespace Webkul\OrderManagement\Models\Admin;
 
-use Webkul\Sales\Models\Order;
 use Webkul\Sales\Models\Invoice as BaseInvoice;
+use Webkul\Sales\Models\Order;
 
 class Invoice extends BaseInvoice
 {

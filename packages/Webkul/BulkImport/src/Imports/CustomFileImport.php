@@ -3,14 +3,13 @@
 namespace Webkul\BulkImport\Imports;
 
 use Illuminate\Support\Collection;
-use Webkul\Product\Models\Product;
 use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\Log;
-use Webkul\Attribute\Models\Attribute;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Throwable;
-use Webkul\BulkImport\Jobs\UpdateProductShuffleJob;
+use Webkul\Attribute\Models\Attribute;
 use Webkul\BulkImport\Jobs\FileImport as JobsFileImport;
+use Webkul\BulkImport\Jobs\UpdateProductShuffleJob;
+use Webkul\Product\Models\Product;
 
 class CustomFileImport implements ToCollection
 {
@@ -44,7 +43,7 @@ class CustomFileImport implements ToCollection
                 $this->updateProductShuffleAttribute();
             })
             ->catch(function (Throwable $e) {
-                \Log::error('Bulk import failed: ' . $e->getMessage());
+                \Log::error('Bulk import failed: '.$e->getMessage());
             })
             ->dispatch();
     }
@@ -78,7 +77,7 @@ class CustomFileImport implements ToCollection
                 }
             }
 
-            if (!empty($jobs)) {
+            if (! empty($jobs)) {
                 Bus::batch($jobs)->dispatch();
             }
         }
